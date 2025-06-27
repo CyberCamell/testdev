@@ -108,7 +108,7 @@ class ContactUs extends StatelessWidget {
           skills: ['Python', 'Django', 'REST API'],
           email: 'ibraheme024@gmail.com',
           linkedin: 'https://linkedin.com/in/cybercamel',
-          imagePath: 'Assets/Images/avatar.png',
+          imagePath: 'Assets/Images/ibrahem.jpg',
           isLeader: true,
           roleColor: const Color(0xFF4B8EF6),
         ),
@@ -121,7 +121,7 @@ class ContactUs extends StatelessWidget {
           skills: ['Flutter', 'Dart', 'Mobile UI'],
           email: 'Ahmed2003kamal1024@gmail.com',
           linkedin: 'https://linkedin.com/in/ahmed-kamal-b1b295233',
-          imagePath: 'Assets/Images/avatar.png',
+          imagePath: 'Assets/Images/ahmed-kamal.jpg',
           roleColor: const Color(0xFF10B981),
         ),
         const SizedBox(height: 16),
@@ -132,7 +132,7 @@ class ContactUs extends StatelessWidget {
           description: 'Flutter specialist focused on building intuitive and performant mobile applications.',
           skills: ['Flutter', 'Dart', 'Mobile UI'],
           email: 'aboshadyahmed74@gmail.com',
-          imagePath: 'Assets/Images/avatar.png',
+          imagePath: 'Assets/Images/ahmed-shady.jpg',
           roleColor: const Color(0xFF10B981),
         ),
         const SizedBox(height: 16),
@@ -144,7 +144,7 @@ class ContactUs extends StatelessWidget {
           skills: ['HTML', 'CSS', 'JavaScript'],
           email: 'mohamedelsaeed1101@gmail.com',
           linkedin: 'https://linkedin.com/in/mohamed-elsaeed-15a77a2aa/',
-          imagePath: 'Assets/Images/avatar.png',
+          imagePath: 'Assets/Images/mohamed.jpg',
           roleColor: const Color(0xFFF59E0B),
         ),
         const SizedBox(height: 16),
@@ -155,7 +155,7 @@ class ContactUs extends StatelessWidget {
           description: 'UI/UX designer creating intuitive and delightful user experiences through thoughtful design.',
           skills: ['Figma', 'UI Design', 'UX Research'],
           email: 'shahdmohamedd350@gmail.com',
-          imagePath: 'Assets/Images/avatar.png',
+          imagePath: 'Assets/Images/shahd.png',
           roleColor: const Color(0xFF8B5CF6),
         ),
       ],
@@ -217,9 +217,14 @@ class ContactUs extends StatelessWidget {
                       child: ClipOval(
                         child: Image.asset(
                           imagePath,
+                          width: 70,
+                          height: 70,
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
+                            print('Error loading image: $imagePath - $error');
                             return Container(
+                              width: 70,
+                              height: 70,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 gradient: LinearGradient(

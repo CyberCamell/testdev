@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'codeblock.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import '../Services/http_client.dart';
+import '../utils/responsive_helper.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
@@ -14,58 +15,24 @@ class ChatbotScreen extends StatefulWidget {
 
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController();
   final List<Map<String, dynamic>> _messages = [
     {
       'role': 'bot',
-      'text':
-          "Hi! I'm DevBot, your AI coding assistant. I'm here to help you with your development questions. What can I help you with today?",
+      'text': "👋 Hi there! I'm DevGuide AI, your personal programming assistant!",
       'isLoading': false,
+      'timestamp': DateTime.now(),
     },
   ];
 
-  List<Widget> parseMessage(String text) {
-    final List<Widget> widgets = [];
-    final codeBlockRegex = RegExp(r'```([\s\S]*?)```');
-    final inlineCodeRegex = RegExp(r'`([^`]+)`');
-    final boldRegex = RegExp(r'\*\*(.*?)\*\*');
-    final italicRegex = RegExp(r'\*(.*?)\*');
-    int lastIndex = 0;
-    for (final match in codeBlockRegex.allMatches(text)) {
-      // Add text before code block
-      if (match.start > lastIndex) {
-        widgets.add(
-          SelectableText(
-            text.substring(lastIndex, match.start),
-            style: const TextStyle(color: Colors.white, fontSize: 16),
-          ),
-        );
-      }
-      widgets.add(
-        CodeBlock(code: match.group(1)?.trim() ?? '', isInline: false),
-      );
-      lastIndex = match.end;
-    }
-    if (lastIndex < text.length) {
-      String remainingText = text.substring(lastIndex);
-      remainingText = remainingText.replaceAllMapped(boldRegex, (match) {
-        return '**${match.group(1)}**';
-      });
-      remainingText = remainingText.replaceAllMapped(italicRegex, (match) {
-        return '*${match.group(1)}*';
-      });
-      remainingText = remainingText.replaceAllMapped(inlineCodeRegex, (match) {
-        return '`${match.group(1)}`';
-      });
-      widgets.add(
-        SelectableText(
-          remainingText,
-          style: const TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      );
-    }
+  final List<String> _suggestions = [
+    'Explain',
+    'How to',
+    'What is',
+    'Best practices',
+  ];
 
-    return widgets;
-  }
+  bool _isTyping = false;
 
   @override
   void initState() {
@@ -73,14 +40,36 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   Future<void> sendMessage(String message) async {
+    if (message.trim().isEmpty) return;
+
     setState(() {
-      _messages.add({'role': 'user', 'text': message});
-      _messages.add({'role': 'bot', 'text': '', 'isLoading': true});
+      _messages.add({
+        'role': 'user', 
+        'text': message,
+        'timestamp': DateTime.now(),
+      });
+      _messages.add({
+        'role': 'bot', 
+        'text': '', 
+        'isLoading': true,
+        'timestamp': DateTime.now(),
+      });
       _controller.clear();
+      _isTyping = true;
     });
 
-    const String apiUrl =
-        'https://api.devguide.help/api/chatbot/';
+    // Auto scroll to bottom
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+
+    const String apiUrl = 'https://api.devguide.help/api/chatbot/';
 
     try {
       final client = CustomHttpClient.getClient();
@@ -96,7 +85,13 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
         setState(() {
           _messages.removeLast();
-          _messages.add({'role': 'bot', 'text': botReply, 'isLoading': false});
+          _messages.add({
+            'role': 'bot', 
+            'text': botReply, 
+            'isLoading': false,
+            'timestamp': DateTime.now(),
+          });
+          _isTyping = false;
         });
       } else {
         throw Exception('Failed to load bot response: ${response.statusCode}');
@@ -106,69 +101,404 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         _messages.removeLast();
         _messages.add({
           'role': 'bot',
-          'text': 'Sorry, I encountered an error. Please try again.',
+          'text': 'I\'m sorry, but I can only assist with programming-related questions. How can I help you today?',
           'isLoading': false,
+          'timestamp': DateTime.now(),
         });
+        _isTyping = false;
       });
     }
+
+    // Auto scroll to bottom after response
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
-  Widget buildMessage(Map<String, dynamic> msg) {
+  Widget _buildHeader() {
+    return Container(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + 10,
+        left: 20,
+        right: 20,
+        bottom: 15,
+      ),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: const BorderRadius.vertical(
+          bottom: Radius.circular(25),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+            onPressed: () => Navigator.pop(context),
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
+          ),
+          const SizedBox(width: 15),
+          Container(
+            width: 45,
+            height: 45,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 5,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                'Assets/Images/bot.png',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(
+                    Icons.smart_toy_rounded,
+                    color: Color(0xFF4A90E2),
+                    size: 25,
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'DevGuide AI Assistant',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF4CAF50),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      _isTyping ? 'Typing...' : 'Online • Ready to help',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessage(Map<String, dynamic> msg, int index) {
     final isBot = msg['role'] == 'bot';
     final isLoading = msg['isLoading'] == true;
+    final timestamp = msg['timestamp'] as DateTime?;
 
-    return Align(
-      alignment: isBot ? Alignment.topLeft : Alignment.topRight,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-        padding: const EdgeInsets.all(12),
-        constraints: const BoxConstraints(maxWidth: 300),
-        decoration: BoxDecoration(
-          color:
-              isBot ? Colors.white.withOpacity(0.15) : const Color(0xFF4DA6FF),
-          borderRadius: BorderRadius.circular(16),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
+        children: [
+          if (isBot) ...[
+            Container(
+              width: 32,
+              height: 32,
+              margin: const EdgeInsets.only(right: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ClipOval(
+                child: Image.asset(
+                  'Assets/Images/bot.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(
+                      Icons.smart_toy_rounded,
+                      color: Color(0xFF4A90E2),
+                      size: 18,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+          Flexible(
+            child: Column(
+              crossAxisAlignment: isBot ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+              children: [
+                Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.75,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: isBot 
+                        ? Colors.white
+                        : const Color(0xFF4A90E2),
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(20),
+                      topRight: const Radius.circular(20),
+                      bottomLeft: Radius.circular(isBot ? 4 : 20),
+                      bottomRight: Radius.circular(isBot ? 20 : 4),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: isLoading
+                      ? const SizedBox(
+                          width: 60,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TypingDot(delay: 0),
+                              TypingDot(delay: 200),
+                              TypingDot(delay: 400),
+                            ],
+                          ),
+                        )
+                      : isBot
+                          ? MarkdownBody(
+                              data: msg['text'] ?? '',
+                              styleSheet: MarkdownStyleSheet(
+                                p: const TextStyle(
+                                  color: Color(0xFF2C3E50),
+                                  fontSize: 15,
+                                  height: 1.4,
+                                ),
+                                code: TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 13,
+                                  color: Colors.white,
+                                  backgroundColor: const Color(0xFF2C3E50).withOpacity(0.1),
+                                ),
+                                strong: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF2C3E50),
+                                ),
+                                em: const TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Color(0xFF2C3E50),
+                                ),
+                              ),
+                            )
+                          : SelectableText(
+                              msg['text'] ?? '',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                height: 1.4,
+                              ),
+                            ),
+                ),
+                if (timestamp != null) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}',
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 11,
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+          if (!isBot) ...[
+            const SizedBox(width: 12),
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
+                ),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSuggestionChips() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: _suggestions.map((suggestion) {
+          return GestureDetector(
+            onTap: () {
+              _controller.text = suggestion;
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.9),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: const Color(0xFF4A90E2).withOpacity(0.3),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Text(
+                suggestion,
+                style: const TextStyle(
+                  color: Color(0xFF4A90E2),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildInputArea() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(25),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.attach_file, color: Color(0xFF4A90E2)),
+              onPressed: () {},
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8F9FA),
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(
+                    color: const Color(0xFF4A90E2).withOpacity(0.2),
+                  ),
+                ),
+                child: TextField(
+                  controller: _controller,
+                  decoration: const InputDecoration(
+                    hintText: 'Ask me anything about programming...',
+                    hintStyle: TextStyle(
+                      color: Color(0xFF9E9E9E),
+                      fontSize: 14,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                  ),
+                  onSubmitted: sendMessage,
+                  maxLines: null,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
+                ),
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.send_rounded, color: Colors.white),
+                onPressed: () {
+                  if (_controller.text.trim().isNotEmpty) {
+                    sendMessage(_controller.text.trim());
+                  }
+                },
+              ),
             ),
           ],
         ),
-        child:
-            isLoading
-                ? const SizedBox(
-                  width: 50,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [Dot(), Dot(), Dot()],
-                  ),
-                )
-                : isBot
-                ? MarkdownBody(
-                  data: msg['text'] ?? '',
-                  styleSheet: MarkdownStyleSheet(
-                    p: const TextStyle(color: Colors.white, fontSize: 16),
-                    code: const TextStyle(
-                      fontFamily: 'monospace',
-                      fontSize: 14,
-                      color: Colors.white,
-                      backgroundColor: Color(0xFF222222),
-                    ),
-                    strong: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    em: const TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.white,
-                    ),
-                  ),
-                )
-                : SelectableText(
-                  msg['text'] ?? '',
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
       ),
     );
   }
@@ -176,118 +506,39 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF006BCA), Color(0xFFE0ECF8)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      backgroundColor: const Color(0xFFF5F7FA),
+      body: Column(
+        children: [
+          _buildHeader(),
+          Expanded(
+            child: ListView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                return _buildMessage(_messages[index], index);
+              },
+            ),
           ),
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const SizedBox(width: 10),
-                  const Icon(
-                    Icons.smart_toy_rounded,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'DevBot',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.only(bottom: 10),
-                reverse: true,
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  final reversedIndex = _messages.length - 1 - index;
-                  return buildMessage(_messages[reversedIndex]);
-                },
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(20),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, -2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      decoration: InputDecoration(
-                        hintText: 'Ask DevBot...',
-                        hintStyle: TextStyle(color: Colors.grey[400]),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
-                      ),
-                      onSubmitted: sendMessage,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0xFF4DA6FF),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.send, color: Colors.white),
-                      onPressed: () {
-                        if (_controller.text.trim().isNotEmpty) {
-                          sendMessage(_controller.text.trim());
-                        }
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          if (_messages.length <= 1) _buildSuggestionChips(),
+          _buildInputArea(),
+        ],
       ),
     );
   }
 }
 
-class Dot extends StatefulWidget {
-  const Dot({super.key});
+class TypingDot extends StatefulWidget {
+  final int delay;
+  
+  const TypingDot({super.key, required this.delay});
 
   @override
-  State<Dot> createState() => _DotState();
+  State<TypingDot> createState() => _TypingDotState();
 }
 
-class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
+class _TypingDotState extends State<TypingDot>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -297,8 +548,16 @@ class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
-    )..repeat(reverse: true);
-    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+    );
+    _animation = Tween<double>(begin: 0.3, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    
+    Future.delayed(Duration(milliseconds: widget.delay), () {
+      if (mounted) {
+        _controller.repeat(reverse: true);
+      }
+    });
   }
 
   @override
@@ -316,7 +575,7 @@ class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
           width: 8,
           height: 8,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(_animation.value),
+            color: const Color(0xFF4A90E2).withOpacity(_animation.value),
             shape: BoxShape.circle,
           ),
         );
