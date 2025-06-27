@@ -1,0 +1,20 @@
+{
+    "@@locale": "en",
+    "appTitle": "DevGuide",
+    "welcome": "Welcome",
+    "welcomeMessage": "Welcome To DevGuide",
+    "welcomeDescription": "Your ultimate programming companion. Discover docs, code smarter, and chat your way through development.",
+    "login": "Login",
+    "signup": "Sign Up",
+    "home": "Home",
+    "tracks": "Tracks",
+    "events": "Events",
+    "settings": "Settings",
+    "profile": "Profile",
+    "editProfile": "Edit Profile",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "haveAccount": "You already have an account?",
+    "chatbot": "DevBot",
+    "chatbotWelcome": "Hi! I'm DevBot, your AI coding assistant. I'm here to help you with your development questions. What can I help you with today?"
+}
