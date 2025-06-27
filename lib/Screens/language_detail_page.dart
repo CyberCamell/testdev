@@ -164,17 +164,37 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                           child: _language!.icon != null && _language!.icon!.isNotEmpty
                                               ? Image.network(
                                                   _language!.icon!,
+                                                  width: 120,
+                                                  height: 120,
                                                   fit: BoxFit.cover,
                                                   errorBuilder: (context, error, stackTrace) {
-                                                    return SvgPicture.asset(
-                                                      'Assets/Images/Layer_1.svg',
-                                                      fit: BoxFit.cover,
+                                                    return Container(
+                                                      width: 120,
+                                                      height: 120,
+                                                      decoration: const BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(0xFF4B8EF6),
+                                                      ),
+                                                      child: const Icon(
+                                                        Icons.code,
+                                                        size: 50,
+                                                        color: Colors.white,
+                                                      ),
                                                     );
                                                   },
                                                 )
-                                              : SvgPicture.asset(
-                                                  'Assets/Images/Layer_1.svg',
-                                                  fit: BoxFit.cover,
+                                              : Container(
+                                                  width: 120,
+                                                  height: 120,
+                                                  decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xFF4B8EF6),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons.code,
+                                                    size: 50,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                         ),
                                       ),
