@@ -79,7 +79,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     });
 
     const String apiUrl =
-        'https://overseas-moon-protection-hills.trycloudflare.com/api/chatbot/';
+        'https://api.devguide.help/api/chatbot/';
 
     try {
       final response = await http.post(

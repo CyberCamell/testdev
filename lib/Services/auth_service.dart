@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class AuthService {
   static const String _baseUrl =
-      'https://overseas-moon-protection-hills.trycloudflare.com';
+      'https://api.devguide.help';
   static const String _tokenKey = 'auth_token';
   static const String _isGuestKey = 'is_guest';
   static const String _resetTokenKey = 'reset_token';
