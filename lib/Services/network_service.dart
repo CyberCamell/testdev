@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:io';
+import 'package:http/io_client.dart';
 
 class NetworkService {
   static const Duration _cacheDuration = Duration(minutes: 5);
@@ -15,7 +16,7 @@ class NetworkService {
       // Override the HttpClient to disable certificate verification
       final httpClient = HttpClient();
       httpClient.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-      _httpClient = http.IOClient(httpClient);
+      _httpClient = IOClient(httpClient);
     }
     return _httpClient!;
   }
