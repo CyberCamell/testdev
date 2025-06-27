@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Widgets/Custom_button.dart';
 import '../Widgets/settings_option_card.dart';
+import '../Widgets/user_avatar_widget.dart';
 import '../Services/auth_service.dart';
 
 class Settings extends StatefulWidget {
@@ -17,6 +18,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   bool _isLoggedIn = false;
   bool _isLoading = true;
+  Map<String, dynamic>? _userData;
 
   @override
   void initState() {
@@ -27,13 +29,21 @@ class _SettingsState extends State<Settings> {
   Future<void> _checkLoginStatus() async {
     try {
       final isLoggedIn = await AuthService.isLoggedIn();
+      Map<String, dynamic>? userData;
+      
+      if (isLoggedIn) {
+        userData = await AuthService.getUserData();
+      }
+      
       setState(() {
         _isLoggedIn = isLoggedIn;
+        _userData = userData;
         _isLoading = false;
       });
     } catch (e) {
       setState(() {
         _isLoggedIn = false;
+        _userData = null;
         _isLoading = false;
       });
     }
@@ -110,6 +120,56 @@ class _SettingsState extends State<Settings> {
             child: Column(
               children: [
                 const SizedBox(height: 15),
+                // User Profile Section (only show when logged in)
+                if (_isLoggedIn && _userData != null)
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    ),
+                    child: Row(
+                      children: [
+                        UserAvatarWidget(
+                          profilePictureUrl: _userData!['profile_picture'],
+                          radius: 30,
+                          backgroundColor: Colors.white.withOpacity(0.2),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _userData!['full_name'] ?? 'User',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                _userData!['email'] ?? '',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.8),
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white.withOpacity(0.6),
+                          size: 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(height: 8),
                 SettingsOptionCard(
                   icon: Icons.account_circle_sharp,
                   text: 'Profile',

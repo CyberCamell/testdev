@@ -45,6 +45,15 @@ class AuthService {
       await prefs.setString(_accessTokenKey, accessToken);
       await prefs.setString(_refreshTokenKey, refreshToken);
 
+      // Process profile picture URL if it exists
+      if (userData['profile_picture'] != null) {
+        String picturePath = userData['profile_picture'];
+        if (!picturePath.startsWith('http')) {
+          picturePath = '$_baseUrl$picturePath';
+          userData['profile_picture'] = picturePath;
+        }
+      }
+
       // Save user data as JSON string
       await prefs.setString(_userDataKey, jsonEncode(userData));
 

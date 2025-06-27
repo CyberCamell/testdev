@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../Widgets/Show_dialog.dart';
 import '../Widgets/chat_bot_button.dart';
+import '../Widgets/user_avatar_widget.dart';
 import '../utils/responsive_helper.dart';
 import '../Services/auth_service.dart';
 
@@ -337,40 +338,32 @@ class _ProfileState extends State<Profile> {
                                 ),
                                 child: Column(
                                   children: [
-                                    GestureDetector(
-                                      onTap: _updateProfilePicture,
-                                      child: Stack(
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 50,
-                                            backgroundImage: _userData?['profile_picture'] != null
-                                                ? NetworkImage(
-                                                    // Add a key to force reload
-                                                    _userData!['profile_picture'],
-                                                  )
-                                                : const NetworkImage(
-                                                    'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
-                                                  ),
-                                          ),
-                                          Positioned(
-                                            bottom: 0,
-                                            right: 0,
-                                            child: Container(
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFF4B8EF6),
-                                                shape: BoxShape.circle,
-                                                border: Border.all(color: Colors.white, width: 2),
-                                              ),
-                                              child: const Icon(
-                                                Icons.camera_alt,
-                                                color: Colors.white,
-                                                size: 16,
-                                              ),
+                                    Stack(
+                                      children: [
+                                        UserAvatarWidget(
+                                          profilePictureUrl: _userData?['profile_picture'],
+                                          radius: 50,
+                                          onTap: _updateProfilePicture,
+                                          backgroundColor: Colors.grey[300],
+                                        ),
+                                        Positioned(
+                                          bottom: 0,
+                                          right: 0,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFF4B8EF6),
+                                              shape: BoxShape.circle,
+                                              border: Border.all(color: Colors.white, width: 2),
+                                            ),
+                                            child: const Icon(
+                                              Icons.camera_alt,
+                                              color: Colors.white,
+                                              size: 16,
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
