@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:devguide/Screens/tracks_page.dart';
 import 'package:devguide/Screens/Settings_Screen.dart';
 import 'package:devguide/Screens/Chatbot_Screen.dart';
-import 'package:devguide/Screens/favorites_screen.dart';
 import 'package:devguide/Widgets/bottom_nav_bar.dart';
+import 'package:devguide/Widgets/favorites_menu_widget.dart';
+import 'package:devguide/Widgets/favorites_placeholder.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _screens = [
     const TracksPage(),
-    const FavoritesScreen(),
+    const FavoritesPlaceholder(), // Placeholder for favorites (will show popup menu)
     const ChatbotScreen(),
     const Settings(),
   ];
@@ -36,6 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onTabTapped(int index) {
+    // Handle favorites tab (index 1) with bottom sheet menu
+    if (index == 1) {
+      FavoritesMenuWidget.show(context);
+      return;
+    }
+    
     setState(() {
       _currentIndex = index;
     });
