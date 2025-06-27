@@ -301,35 +301,9 @@ class _LanguageListPageState extends State<LanguageListPage> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Container(
-                                                      width: 48,
-                                                      height: 48,
-                                                      decoration: BoxDecoration(
-                                                        color: const Color(0xFF4B8EF6).withOpacity(0.1),
-                                                        borderRadius: BorderRadius.circular(12),
-                                                      ),
-                                                      child: language.flagUrl != null
-                                                          ? ClipRRect(
-                                                              borderRadius: BorderRadius.circular(12),
-                                                              child: Image.network(
-                                                                language.flagUrl!,
-                                                                width: 48,
-                                                                height: 48,
-                                                                fit: BoxFit.cover,
-                                                                errorBuilder: (context, error, stackTrace) {
-                                                                  return const Icon(
-                                                                    Icons.language,
-                                                                    color: Color(0xFF4B8EF6),
-                                                                    size: 24,
-                                                                  );
-                                                                },
-                                                              ),
-                                                            )
-                                                          : const Icon(
-                                                              Icons.language,
-                                                              color: Color(0xFF4B8EF6),
-                                                              size: 24,
-                                                            ),
+                                                    LanguageIconWidget(
+                                                      iconUrl: language.icon,
+                                                      size: 48,
                                                     ),
                                                     const SizedBox(width: 16),
                                                     Expanded(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import '../Services/track_service.dart';
+import '../Services/http_client.dart';
 import '../models/language.dart';
 import '../models/term.dart';
 import '../utils/responsive_helper.dart';
 import '../Widgets/base_screen.dart';
+import '../Widgets/language_icon_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:typed_data';
 
 class LanguageDetailPage extends StatefulWidget {
   final int languageId;
@@ -54,6 +57,8 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
       });
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -161,41 +166,13 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                           ],
                                         ),
                                         child: ClipOval(
-                                          child: _language!.icon != null && _language!.icon!.isNotEmpty
-                                              ? Image.network(
-                                                  _language!.icon!,
-                                                  width: 120,
-                                                  height: 120,
-                                                  fit: BoxFit.cover,
-                                                  errorBuilder: (context, error, stackTrace) {
-                                                    return Container(
-                                                      width: 120,
-                                                      height: 120,
-                                                      decoration: const BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: Color(0xFF4B8EF6),
-                                                      ),
-                                                      child: const Icon(
-                                                        Icons.code,
-                                                        size: 50,
-                                                        color: Colors.white,
-                                                      ),
-                                                    );
-                                                  },
-                                                )
-                                              : Container(
-                                                  width: 120,
-                                                  height: 120,
-                                                  decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Color(0xFF4B8EF6),
-                                                  ),
-                                                  child: const Icon(
-                                                    Icons.code,
-                                                    size: 50,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
+                                          child: LanguageIconWidget(
+                                            iconUrl: _language!.icon,
+                                            size: 120,
+                                            borderRadius: BorderRadius.circular(60),
+                                            backgroundColor: Colors.white,
+                                            fallbackIconColor: const Color(0xFF4B8EF6),
+                                          ),
                                         ),
                                       ),
                                     ),
