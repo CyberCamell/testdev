@@ -6,6 +6,16 @@
   <title>DevGuide</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" href="Layer_1.svg" type="image/svg+xml">
+  <meta name="description" content="DevGuide - Your comprehensive platform for learning programming languages, development tracks, and connecting with the developer community.">
+  <meta name="keywords" content="programming, development, learning, tracks, languages, community, coding">
+  <meta name="author" content="DevGuide Team">
+  <meta property="og:title" content="DevGuide - Learn Programming & Development">
+  <meta property="og:description" content="Master programming languages and development tracks with our comprehensive learning platform and vibrant community.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="Layer_1.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="app-container">
   <header class="header">
@@ -21,23 +31,105 @@
         </div>
         <div id="user-dropdown" class="dropdown">
           <div id="guest-links">
-            <a href="#register">Register</a>
-            <a href="#login">Login</a>
-            <a href="#reset-password">Reset Password</a>
+            <a href="#register" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <line x1="20" y1="8" x2="20" y2="14"/>
+                <line x1="23" y1="11" x2="17" y2="11"/>
+              </svg>
+              <span>Register</span>
+            </a>
+            <a href="#login" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10,17 15,12 10,7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              <span>Login</span>
+            </a>
+            <a href="#reset-password" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <circle cx="12" cy="16" r="1"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>Reset Password</span>
+            </a>
           </div>
           <div id="user-links" class="hidden">
-            <a href="#my-tracks">My Tracks</a>
-            <a href="#my-languages">My Languages</a>
-            <a href="#profile">Profile</a>
-            <a href="#" id="logout-btn">Logout</a>
+            <a href="#my-tracks" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/>
+                <path d="M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/>
+              </svg>
+              <span>My Tracks</span>
+            </a>
+            <a href="#my-languages" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="14,6 10,17 15,17 19,6"/>
+                <line x1="5" y1="17" x2="9" y2="6"/>
+                <line x1="5" y1="12" x2="7" y2="12"/>
+              </svg>
+              <span>My Languages</span>
+            </a>
+            <a href="#profile" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Profile</span>
+            </a>
+            <a href="#" id="logout-btn" class="dropdown-link">
+              <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16,17 21,12 16,7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              <span>Logout</span>
+            </a>
           </div>
         </div>
       </div>
       <div class="header-nav">
-        <a href="#languages">Languages</a>
-        <a href="#tracks">Tracks</a>
-        <a href="#community">Community</a>
-        <a href="#login" id="logout-btn" class="hidden">Logout</a>
+        <a href="#tracks" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"/>
+            <path d="M9 7V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v3"/>
+          </svg>
+          <span>Tracks</span>
+        </a>
+        <a href="#languages" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="14,6 10,17 15,17 19,6"/>
+            <line x1="5" y1="17" x2="9" y2="6"/>
+            <line x1="5" y1="12" x2="7" y2="12"/>
+          </svg>
+          <span>Languages</span>
+        </a>
+        <a href="#community" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Community</span>
+        </a>
+        <a href="#upcoming" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+          <span>Upcoming</span>
+        </a>
+        <a href="#mobile-app" class="nav-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+          </svg>
+          <span>Mobile App</span>
+        </a>
       </div>
       <!-- Header search icon and toggleable input -->
       <div class="search-container">
@@ -48,6 +140,14 @@
       </div>
     </div>
   </header>
+
+  <!-- Enhanced Notification System -->
+  <div id="notification-container" class="notification-container"></div>
+  
+  <!-- Offline Indicator -->
+  <div id="offline-indicator" class="offline-indicator">
+    <span>⚠️ You're offline. Some features may not work properly.</span>
+  </div>
 
   <main class="main-content">
     <div class="decor-circle circle-large top-left"></div>
@@ -149,7 +249,7 @@
       <!-- Chatbot -->
       <section id="chatbot" class="section panel-section hidden">
         <div class="panel single-col">
-          <h2 class="heading">Chatbot</h2>
+          <h2 class="heading">DevGuide Chatbot`</h2>
           <div class="chat-container">
             <div id="chatbot-messages" class="chat-window"></div>
             <form id="chatbot-form" class="chat-input-container">
@@ -170,9 +270,93 @@
 
       <!-- Terms (language-specific) -->
       <section id="terms" class="section panel-section hidden">
-        <div class="panel single-col">
-          <h2 class="heading">Terms for <span id="terms-heading"></span></h2>
-          <ul id="terms-list"></ul>
+        <div class="panel terms-panel">
+          <div class="terms-header">
+            <div class="terms-header-content">
+              <h2 class="heading">📚 <span id="terms-heading"></span> Terms</h2>
+              <p class="terms-subtitle">Master key concepts and terminology to accelerate your learning journey</p>
+            </div>
+            <div class="terms-stats">
+              <div class="stat-item">
+                <span class="stat-number" id="terms-count">0</span>
+                <span class="stat-label">Terms</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="terms-categories">0</span>
+                <span class="stat-label">Categories</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="terms-controls">
+            <div class="terms-search-container">
+              <div class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <input type="text" id="terms-search" class="terms-search-input" placeholder="Search terms...">
+              <button id="clear-terms-search" class="clear-search-btn" title="Clear search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="terms-filters">
+              <select id="terms-sort" class="terms-sort-select">
+                <option value="alphabetical">A-Z</option>
+                <option value="reverse-alphabetical">Z-A</option>
+                <option value="importance">Most Important</option>
+                <option value="difficulty">Difficulty Level</option>
+              </select>
+              
+              <div class="view-toggle">
+                <button id="grid-view" class="view-btn active" title="Grid View">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                </button>
+                <button id="list-view" class="view-btn" title="List View">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="8" y1="6" x2="21" y2="6"/>
+                    <line x1="8" y1="12" x2="21" y2="12"/>
+                    <line x1="8" y1="18" x2="21" y2="18"/>
+                    <line x1="3" y1="6" x2="3.01" y2="6"/>
+                    <line x1="3" y1="12" x2="3.01" y2="12"/>
+                    <line x1="3" y1="18" x2="3.01" y2="18"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="terms-content">
+            <div id="terms-no-results" class="no-results hidden">
+              <div class="no-results-icon">🔍</div>
+              <h3>No terms found</h3>
+              <p>Try adjusting your search or filters</p>
+            </div>
+            
+            <div id="terms-list" class="terms-grid"></div>
+          </div>
+          
+          <div class="terms-footer">
+            <div class="terms-legend">
+              <h4>Difficulty Levels:</h4>
+              <div class="difficulty-badges">
+                <span class="difficulty-badge beginner">Beginner</span>
+                <span class="difficulty-badge intermediate">Intermediate</span>
+                <span class="difficulty-badge advanced">Advanced</span>
+                <span class="difficulty-badge expert">Expert</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -237,62 +421,833 @@
 
       <!-- Search -->
       <section id="search" class="section panel-section hidden">
-        <div class="panel single-col search-page">
-          <h2 class="heading">Search</h2>
-          <form id="search-form" class="search-form">
-            <div class="search-bar">
-              <input type="text" id="search-query" class="search-input" placeholder="Search for tracks, languages & terms..." required>
+        <div class="panel search-panel">
+          <div class="search-header">
+            <div class="search-header-content">
+              <h2 class="heading">🔍 Universal Search</h2>
+              <p class="search-subtitle">Discover tracks, languages, and terms all in one place</p>
             </div>
-          </form>
-          <div id="search-results" class="search-results"></div>
+            <div class="search-stats">
+              <div class="stat-item">
+                <span class="stat-number" id="search-results-count">0</span>
+                <span class="stat-label">Results</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" id="search-categories-count">0</span>
+                <span class="stat-label">Categories</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="search-controls">
+            <form id="search-form" class="search-form">
+              <div class="search-main-container">
+                <div class="search-icon-main">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.35-4.35"/>
+                  </svg>
+                </div>
+                <input type="text" id="search-query" class="search-main-input" placeholder="Search tracks, languages, terms..." required>
+                <button id="clear-main-search" class="clear-main-search-btn" type="button" title="Clear search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+                <button type="submit" class="search-submit-btn">
+                  <span>Search</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22,2 15,22 11,13 2,9 22,2"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+            
+            <div class="search-filters">
+              <div class="filter-group">
+                <label for="search-category">Category</label>
+                <select id="search-category" class="search-category-select">
+                  <option value="all">All Categories</option>
+                  <option value="tracks">Tracks</option>
+                  <option value="languages">Languages</option>
+                  <option value="terms">Terms</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label for="search-sort">Sort By</label>
+                <select id="search-sort" class="search-sort-select">
+                  <option value="relevance">Relevance</option>
+                  <option value="alphabetical">A-Z</option>
+                  <option value="reverse-alphabetical">Z-A</option>
+                  <option value="popularity">Popularity</option>
+                </select>
+              </div>
+              
+              <div class="search-view-toggle">
+                <button id="search-grid-view" class="search-view-btn active" title="Grid View">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/>
+                    <rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/>
+                    <rect x="3" y="14" width="7" height="7"/>
+                  </svg>
+                  <span class="sr-only">Grid View</span>
+                </button>
+                <button id="search-list-view" class="search-view-btn" title="List View">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="8" y1="6" x2="21" y2="6"/>
+                    <line x1="8" y1="12" x2="21" y2="12"/>
+                    <line x1="8" y1="18" x2="21" y2="18"/>
+                    <line x1="3" y1="6" x2="3.01" y2="6"/>
+                    <line x1="3" y1="12" x2="3.01" y2="12"/>
+                    <line x1="3" y1="18" x2="3.01" y2="18"/>
+                  </svg>
+                  <span class="sr-only">List View</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="search-content">
+            <div id="search-no-results" class="search-no-results hidden">
+              <div class="no-results-icon">🔍</div>
+              <h3>No results found</h3>
+              <p>Try different keywords or check your spelling</p>
+              
+              <div class="chatbot-help-section">
+                <div class="chatbot-help-card">
+                  <div class="chatbot-help-icon">
+                    <img src="bot.png" alt="Chatbot" />
+                  </div>
+                  <div class="chatbot-help-content">
+                    <h4>Need more help?</h4>
+                    <p>Our AI chatbot can help you find what you're looking for and suggest relevant resources!</p>
+                    <button id="no-results-chatbot-btn" class="chatbot-help-btn">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        <path d="M13 8l-3 3 3 3"/>
+                        <path d="M17 8l-3 3 3 3"/>
+                      </svg>
+                      Ask Chatbot for Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="search-suggestions">
+                <p>Or try these popular searches:</p>
+                <div class="suggestion-tags">
+                  <button class="suggestion-tag" data-query="JavaScript">JavaScript</button>
+                  <button class="suggestion-tag" data-query="Python">Python</button>
+                  <button class="suggestion-tag" data-query="Web Development">Web Development</button>
+                  <button class="suggestion-tag" data-query="Frontend">Frontend</button>
+                  <button class="suggestion-tag" data-query="Backend">Backend</button>
+                </div>
+              </div>
+            </div>
+            
+            <div id="search-results" class="search-results-container">
+              <div class="search-loading hidden">
+                <div class="loading-spinner"></div>
+                <p>Searching...</p>
+              </div>
+              
+              <div id="search-results-grid" class="search-results-grid"></div>
+            </div>
+          </div>
+          
+          <div class="search-footer">
+            <div class="search-tips">
+              <h4>💡 Search Tips:</h4>
+              <div class="tips-list">
+                <span class="tip-item">Use quotes for exact phrases</span>
+                <span class="tip-item">Try synonyms or related terms</span>
+                <span class="tip-item">Use category filters to narrow results</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Privacy Policy -->
       <section id="privacy" class="section panel-section hidden">
-        <div class="panel single-col">
-          <h2 class="heading">Privacy Policy</h2>
-          <p>Your privacy is important to us. [Add your privacy policy text here.]</p>
+        <div class="panel legal-panel">
+          <div class="legal-header">
+            <div class="legal-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h2 class="heading">Privacy Policy</h2>
+            <p class="legal-subtitle">Your privacy is our priority. Learn how we protect and use your information.</p>
+            <div class="legal-meta">
+              <span class="effective-date">Effective Date: January 1, 2024</span>
+              <span class="last-updated">Last Updated: January 15, 2024</span>
+            </div>
+          </div>
+
+          <div class="legal-content">
+            <div class="legal-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                  </svg>
+                </div>
+                <h3>How We Use Your Information</h3>
+              </div>
+              <div class="section-content">
+                <div class="usage-grid">
+                  <div class="usage-item">
+                    <div class="usage-icon">🎯</div>
+                    <h4>Personalization</h4>
+                    <p>Customize your learning experience and recommend relevant content</p>
+                  </div>
+                  <div class="usage-item">
+                    <div class="usage-icon">📊</div>
+                    <h4>Progress Tracking</h4>
+                    <p>Monitor your learning progress and provide achievement insights</p>
+                  </div>
+                  <div class="usage-item">
+                    <div class="usage-icon">🤝</div>
+                    <h4>Community Features</h4>
+                    <p>Enable participation in Q&A forums and peer interactions</p>
+                  </div>
+                  <div class="usage-item">
+                    <div class="usage-icon">🔧</div>
+                    <h4>Platform Improvement</h4>
+                    <p>Analyze usage patterns to enhance our services and features</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="legal-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <circle cx="12" cy="16" r="1"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                </div>
+                <h3>Data Protection & Security</h3>
+              </div>
+              <div class="section-content">
+                <div class="security-features">
+                  <div class="security-item">
+                    <span class="security-badge">🔐 Encryption</span>
+                    <p>All data transmitted is encrypted using industry-standard SSL/TLS protocols</p>
+                  </div>
+                  <div class="security-item">
+                    <span class="security-badge">🛡️ Secure Storage</span>
+                    <p>Your personal information is stored on secure servers with restricted access</p>
+                  </div>
+                  <div class="security-item">
+                    <span class="security-badge">🔍 Regular Audits</span>
+                    <p>We conduct regular security audits and vulnerability assessments</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="legal-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="8.5" cy="7" r="4"/>
+                    <path d="M20 8v6M23 11h-6"/>
+                  </svg>
+                </div>
+                <h3>Your Rights & Choices</h3>
+              </div>
+              <div class="section-content">
+                <div class="rights-list">
+                  <div class="right-item">
+                    <h4>Access & Download</h4>
+                    <p>Request a copy of all personal data we have about you</p>
+                  </div>
+                  <div class="right-item">
+                    <h4>Correction & Update</h4>
+                    <p>Modify or update your personal information at any time</p>
+                  </div>
+                  <div class="right-item">
+                    <h4>Data Deletion</h4>
+                    <p>Request deletion of your account and associated data</p>
+                  </div>
+                  <div class="right-item">
+                    <h4>Marketing Opt-out</h4>
+                    <p>Unsubscribe from promotional emails and notifications</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="legal-section contact-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <h3>Contact Us</h3>
+              </div>
+              <div class="section-content">
+                <p>If you have any questions about this Privacy Policy or your data, please contact us:</p>
+                <div class="contact-info">
+                  <div class="contact-item">
+                    <strong>Email:</strong> privacy@devguide.help
+                  </div>
+                  <div class="contact-item">
+                    <strong>Address:</strong> DevGuide Privacy Office, Cairo, Egypt
+                  </div>
+                  <div class="contact-item">
+                    <strong>Response Time:</strong> We respond to privacy inquiries within 72 hours
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Terms of Service -->
       <section id="terms-of-service" class="section panel-section hidden">
-        <div class="panel single-col">
-          <h2 class="heading">Terms of Service</h2>
-          <p>Please read these terms of service carefully. [Add your terms of service text here.]</p>
+        <div class="panel legal-panel">
+          <div class="legal-header">
+            <div class="legal-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14,2 14,8 20,8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+                <polyline points="10,9 9,9 8,9"/>
+              </svg>
+            </div>
+            <h2 class="heading">Terms of Service</h2>
+            <p class="legal-subtitle">Please read these terms carefully before using DevGuide platform.</p>
+            <div class="legal-meta">
+              <span class="effective-date">Effective Date: January 1, 2024</span>
+              <span class="last-updated">Last Updated: January 15, 2024</span>
+            </div>
+          </div>
+
+          <div class="legal-content">
+            <div class="legal-section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c2.5 0 4.74 1.02 6.36 2.64"/>
+                  </svg>
+                </div>
+                <h3>Acceptance of Terms</h3>
+              </div>
+              <div class="section-content">
+                <p>By accessing and using DevGuide, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.</p>
+                <div class="terms-highlight">
+                  <strong>Important:</strong> These terms constitute a legally binding agreement between you and DevGuide.
+                </div>
+              </div>
+            </div>
+
+            <div class="legal-section user-responsibilities-section">
+              <div class="section-header">
+                <div class="section-icon user-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="8.5" cy="7" r="4"/>
+                    <path d="M20 8v6M23 11h-6"/>
+                  </svg>
+                </div>
+                <h3>User Accounts & Responsibilities</h3>
+                <p class="section-subtitle">Your rights and responsibilities as a DevGuide member</p>
+              </div>
+              <div class="section-content">
+                <div class="responsibility-showcase">
+                  <!-- Account Security Card -->
+                  <div class="responsibility-card account-security">
+                    <div class="card-header">
+                      <div class="card-icon security-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                          <circle cx="12" cy="16" r="1"/>
+                          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                      </div>
+                      <div class="card-title">
+                        <h4>Account Security</h4>
+                        <span class="importance-badge high">High Priority</span>
+                      </div>
+                    </div>
+                    <div class="card-content">
+                      <div class="responsibility-list">
+                        <div class="responsibility-point">
+                          <span class="point-icon">🔐</span>
+                          <div class="point-content">
+                            <strong>Strong Authentication</strong>
+                            <p>Use a unique, strong password and enable two-factor authentication when available</p>
+                          </div>
+                        </div>
+                        <div class="responsibility-point">
+                          <span class="point-icon">📧</span>
+                          <div class="point-content">
+                            <strong>Accurate Information</strong>
+                            <p>Provide truthful and complete registration details for account verification</p>
+                          </div>
+                        </div>
+                        <div class="responsibility-point">
+                          <span class="point-icon">🚨</span>
+                          <div class="point-content">
+                            <strong>Immediate Reporting</strong>
+                            <p>Report any suspicious activity or unauthorized access immediately</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Platform Usage Card -->
+                  <div class="responsibility-card platform-usage">
+                    <div class="card-header">
+                      <div class="card-icon usage-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M9 12l2 2 4-4"/>
+                          <path d="M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                      </div>
+                      <div class="card-title">
+                        <h4>Platform Usage</h4>
+                        <span class="importance-badge medium">Essential</span>
+                      </div>
+                    </div>
+                    <div class="card-content">
+                      <div class="responsibility-list">
+                        <div class="responsibility-point">
+                          <span class="point-icon">⚖️</span>
+                          <div class="point-content">
+                            <strong>Lawful Use Only</strong>
+                            <p>Use DevGuide exclusively for legal educational and professional purposes</p>
+                          </div>
+                        </div>
+                        <div class="responsibility-point">
+                          <span class="point-icon">🤝</span>
+                          <div class="point-content">
+                            <strong>Professional Conduct</strong>
+                            <p>Maintain respectful interactions and contribute positively to our learning community</p>
+                          </div>
+                        </div>
+                        <div class="responsibility-point">
+                          <span class="point-icon">🛡️</span>
+                          <div class="point-content">
+                            <strong>Content Standards</strong>
+                            <p>Share appropriate, constructive content that enhances the learning experience</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Account Ownership Card -->
+                  <div class="responsibility-card account-ownership">
+                    <div class="card-header">
+                      <div class="card-icon ownership-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                          <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                      </div>
+                      <div class="card-title">
+                        <h4>Account Ownership</h4>
+                        <span class="importance-badge critical">Critical</span>
+                      </div>
+                    </div>
+                    <div class="card-content">
+                      <div class="responsibility-list">
+                        <div class="responsibility-point">
+                          <span class="point-icon">👤</span>
+                          <div class="point-content">
+                            <strong>Personal Responsibility</strong>
+                            <p>You are fully responsible for all activities conducted through your account</p>
+                          </div>
+                        </div>
+                        <div class="responsibility-point">
+                          <span class="point-icon">🔄</span>
+                          <div class="point-content">
+                            <strong>Account Maintenance</strong>
+                            <p>Keep your profile information current and manage your learning preferences</p>
+                          </div>
+                        </div>
+                        <div class="responsibility-point">
+                          <span class="point-icon">📊</span>
+                          <div class="point-content">
+                            <strong>Usage Monitoring</strong>
+                            <p>Monitor your account activity and learning progress regularly</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Enhanced Quick Reference Section -->
+
+
+                <div class="legal-section">
+                  <div class="section-header">
+                    <div class="section-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                      </svg>
+                    </div>
+                    <h3>Learning Content & Intellectual Property</h3>
+                  </div>
+                  <div class="section-content">
+                    <div class="content-rules">
+                      <div class="rule-card">
+                        <div class="rule-icon">📚</div>
+                        <h4>Educational Use</h4>
+                        <p>All learning materials are provided for educational purposes. You may access and use content for personal learning only.</p>
+                      </div>
+                      <div class="rule-card">
+                        <div class="rule-icon">©️</div>
+                        <h4>Copyright Protection</h4>
+                        <p>All content, including text, graphics, logos, and software, is protected by copyright and other intellectual property laws.</p>
+                      </div>
+                      <div class="rule-card">
+                        <div class="rule-icon">🚫</div>
+                        <h4>Prohibited Actions</h4>
+                        <p>You may not reproduce, distribute, modify, or create derivative works from our content without permission.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="legal-section">
+                  <div class="section-header">
+                    <div class="section-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                      </svg>
+                    </div>
+                    <h3>Community Guidelines</h3>
+                  </div>
+                  <div class="section-content">
+                    <div class="guidelines-list">
+                      <div class="guideline-item">
+                        <span class="guideline-badge positive">✅ Encouraged</span>
+                        <div class="guideline-content">
+                          <h4>Positive Interactions</h4>
+                          <p>Ask thoughtful questions, share helpful answers, and support fellow learners in their coding journey.</p>
+                        </div>
+                      </div>
+                      <div class="guideline-item">
+                        <span class="guideline-badge neutral">ℹ️ Guidelines</span>
+                        <div class="guideline-content">
+                          <h4>Quality Content</h4>
+                          <p>Ensure your posts are relevant, well-formatted, and add value to the community discussions.</p>
+                        </div>
+                      </div>
+                      <div class="guideline-item">
+                        <span class="guideline-badge negative">❌ Prohibited</span>
+                        <div class="guideline-content">
+                          <h4>Unacceptable Behavior</h4>
+                          <p>Spam, harassment, hate speech, or any form of discrimination will result in immediate account suspension.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="legal-section">
+                  <div class="section-header">
+                    <div class="section-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+                      </svg>
+                    </div>
+                    <h3>Disclaimers & Limitations</h3>
+                  </div>
+                  <div class="section-content">
+                    <div class="disclaimer-cards">
+                      <div class="disclaimer-card">
+                        <h4>Service Availability</h4>
+                        <p>We strive for 99.9% uptime but cannot guarantee uninterrupted service. Maintenance windows and unexpected outages may occur.</p>
+                      </div>
+                      <div class="disclaimer-card">
+                        <h4>Content Accuracy</h4>
+                        <p>While we ensure high-quality educational content, we cannot guarantee the accuracy or completeness of all materials.</p>
+                      </div>
+                      <div class="disclaimer-card">
+                        <h4>Career Outcomes</h4>
+                        <p>Learning outcomes depend on individual effort. We do not guarantee employment or specific career results.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="legal-section">
+                  <div class="section-header">
+                    <div class="section-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                      </svg>
+                    </div>
+                    <h3>Termination & Modifications</h3>
+                  </div>
+                  <div class="section-content">
+                    <div class="termination-info">
+                      <div class="termination-section">
+                        <h4>Account Termination</h4>
+                        <p>We reserve the right to terminate accounts that violate these terms. You may also delete your account at any time through your profile settings.</p>
+                      </div>
+                      <div class="termination-section">
+                        <h4>Terms Updates</h4>
+                        <p>We may update these terms occasionally. Significant changes will be communicated via email and in-app notifications 30 days in advance.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="legal-section contact-section">
+                  <div class="section-header">
+                    <div class="section-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                      </svg>
+                    </div>
+                    <h3>Questions & Support</h3>
+                  </div>
+                  <div class="section-content">
+                    <p>If you have questions about these Terms of Service, please contact our legal team:</p>
+                    <div class="contact-info">
+                      <div class="contact-item">
+                        <strong>Email:</strong> legal@devguide.help
+                      </div>
+                      <div class="contact-item">
+                        <strong>Support:</strong> help@devguide.help
+                      </div>
+                      <div class="contact-item">
+                        <strong>Address:</strong> DevGuide Legal Department, Cairo, Egypt
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- Contact Us -->
       <section id="contact" class="section panel-section hidden">
-        <div class="panel">
-          <h2 class="heading">Contact Us</h2>
-          <div class="creators-container">
-            <div class="creator-card">
-              <img src="ibrahem.jpg" alt="Alice Smith" class="creator-pic" />
-              <h3 class="creator-name">Alice Smith</h3>
-              <p class="creator-desc">Lead Developer with expertise in UI/UX and JavaScript frameworks.</p>
+        <div class="panel contact-panel">
+          <h2 class="heading">Meet Our Team</h2>
+          <p class="team-subtitle">Get to know the talented individuals behind DevGuide</p>
+          
+          <div class="team-container">
+            <!-- Team Leader -->
+            <div class="team-card leader-card">
+              <div class="team-card-header">
+                <div class="team-avatar">
+                  <img src="ibrahem.jpg" alt="Ibrahem Elgamal" class="team-pic" />
+                </div>
+                <div class="team-role-badge leader-badge">
+                  <svg class="role-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                  </svg>
+                  <span>Backend & AI Developer</span>
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-name">Ibrahem Elgamal</h3>
+                <p class="team-description">Backend and AI specialist passionate about creating robust systems and intelligent solutions.</p>
+                <div class="team-skills">
+                  <span class="skill-tag python">Python</span>
+                  <span class="skill-tag django">Django</span>
+                  <span class="skill-tag rest">REST API</span>
+                </div>
+                <div class="team-contact">
+                  <a href="mailto:ibraheme024@gmail.com" class="contact-link email-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span class="contact-text">ibraheme024@gmail.com</span>
+                  </a>
+                  <a href="https://linkedin.com/in/cybercamel" target="_blank" class="contact-link linkedin-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 8A6 6 0 0 1 22 14V21H18V14A2 2 0 0 0 16 12A2 2 0 0 0 14 14V21H10V9H14V11A6 6 0 0 1 16 8Z"/>
+                      <rect x="2" y="9" width="4" height="12"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    <span class="contact-text">linkedin.com/in/cybercamel</span>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="creator-card">
-              <img src="Layer_1.svg" alt="Bob Johnson" class="creator-pic" />
-              <h3 class="creator-name">Bob Johnson</h3>
-              <p class="creator-desc">Backend Engineer specializing in API development and database design.</p>
+
+            <!-- Mobile Developers -->
+            <div class="team-card">
+              <div class="team-card-header">
+                <div class="team-avatar">
+                  <img src="ahmed-kamal.jpg" alt="Ahmed Kamal" class="team-pic" />
+                </div>
+                <div class="team-role-badge mobile-badge">
+                  <svg class="role-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                    <line x1="12" y1="18" x2="12.01" y2="18"/>
+                  </svg>
+                  <span>Mobile Developer</span>
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-name">Ahmed Kamal</h3>
+                <p class="team-description">Mobile app developer creating seamless cross-platform experiences with Flutter.</p>
+                <div class="team-skills">
+                  <span class="skill-tag flutter">Flutter</span>
+                  <span class="skill-tag dart">Dart</span>
+                  <span class="skill-tag mobile">Mobile UI</span>
+                </div>
+                <div class="team-contact">
+                  <a href="mailto:Ahmed2003kamal1024@gmail.com" class="contact-link email-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span class="contact-text">Ahmed2003kamal1024@gmail.com</span>
+                  </a>
+                  <a href="https://linkedin.com/in/ahmed-kamal-b1b295233" target="_blank" class="contact-link linkedin-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 8A6 6 0 0 1 22 14V21H18V14A2 2 0 0 0 16 12A2 2 0 0 0 14 14V21H10V9H14V11A6 6 0 0 1 16 8Z"/>
+                      <rect x="2" y="9" width="4" height="12"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    <span class="contact-text">linkedin.com/in/ahmed-kamal-b1b295233</span>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="creator-card">
-              <img src="Layer_1.svg" alt="Carol Williams" class="creator-pic" />
-              <h3 class="creator-name">Carol Williams</h3>
-              <p class="creator-desc">Full-stack developer and DevOps advocate.</p>
+
+            <div class="team-card">
+              <div class="team-card-header">
+                <div class="team-avatar">
+                  <img src="ahmed-shady.jpg" alt="Ahmed Aboshady" class="team-pic" />
+                </div>
+                <div class="team-role-badge mobile-badge">
+                  <svg class="role-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                    <line x1="12" y1="18" x2="12.01" y2="18"/>
+                  </svg>
+                  <span>Mobile Developer</span>
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-name">Ahmed Aboshady</h3>
+                <p class="team-description">Flutter specialist focused on building intuitive and performant mobile applications.</p>
+                <div class="team-skills">
+                  <span class="skill-tag flutter">Flutter</span>
+                  <span class="skill-tag dart">Dart</span>
+                  <span class="skill-tag mobile">Mobile UI</span>
+                </div>
+                                  <div class="team-contact">
+                    <a href="mailto:aboshadyahmed74@gmail.com" class="contact-link email-link">
+                      <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                      </svg>
+                      <span class="contact-text">aboshadyahmed74@gmail.com</span>
+                    </a>
+                  </div>
+              </div>
             </div>
-            <div class="creator-card">
-              <img src="ibrahem.jpg" alt="Dave Brown" class="creator-pic" />
-              <h3 class="creator-name">Dave Brown</h3>
-              <p class="creator-desc">Quality Assurance Engineer passionate about testing and automation.</p>
+
+            <!-- Frontend Developer -->
+            <div class="team-card">
+              <div class="team-card-header">
+                <div class="team-avatar">
+                  <img src="mohamed.jpg" alt="Mohamed Elsaaed" class="team-pic" />
+                </div>
+                <div class="team-role-badge frontend-badge">
+                  <svg class="role-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="16,18 22,12 16,6"/>
+                    <polyline points="8,6 2,12 8,18"/>
+                  </svg>
+                  <span>Frontend Developer</span>
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-name">Mohamed Elsaaed</h3>
+                <p class="team-description">Frontend developer crafting beautiful and responsive web interfaces with modern technologies.</p>
+                <div class="team-skills">
+                  <span class="skill-tag html">HTML</span>
+                  <span class="skill-tag css">CSS</span>
+                  <span class="skill-tag js">JavaScript</span>
+                </div>
+                <div class="team-contact">
+                  <a href="mailto:mohamedelsaeed1101@gmail.com" class="contact-link email-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span class="contact-text">mohamedelsaeed1101@gmail.com</span>
+                  </a>
+                  <a href="https://linkedin.com/in/mohamed-elsaeed-15a77a2aa/" target="_blank" class="contact-link linkedin-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 8A6 6 0 0 1 22 14V21H18V14A2 2 0 0 0 16 12A2 2 0 0 0 14 14V21H10V9H14V11A6 6 0 0 1 16 8Z"/>
+                      <rect x="2" y="9" width="4" height="12"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    <span class="contact-text">linkedin.com/in/mohamed-elsaeed-15a77a2aa/</span>
+                  </a>
+                </div>
+              </div>
             </div>
-            <div class="creator-card">
-              <img src="Layer_1.svg" alt="Eve Davis" class="creator-pic" />
-              <h3 class="creator-name">Eve Davis</h3>
-              <p class="creator-desc">Project Manager ensuring smooth delivery and team coordination.</p>
+
+            <!-- UI/UX Designer -->
+            <div class="team-card">
+              <div class="team-card-header">
+                <div class="team-avatar">
+                  <img src="shahd.png" alt="Shahd Elbana" class="team-pic" />
+                </div>
+                <div class="team-role-badge design-badge">
+                  <svg class="role-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                  </svg>
+                  <span>UI/UX Designer</span>
+                </div>
+              </div>
+              <div class="team-card-content">
+                <h3 class="team-name">Shahd Elbana</h3>
+                <p class="team-description">UI/UX designer creating intuitive and delightful user experiences through thoughtful design.</p>
+                <div class="team-skills">
+                  <span class="skill-tag figma">Figma</span>
+                  <span class="skill-tag design">UI Design</span>
+                  <span class="skill-tag ux">UX Research</span>
+                </div>
+                <div class="team-contact">
+                  <a href="mailto:shahdmohamedd350@gmail.com" class="contact-link email-link">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <span class="contact-text">shahdmohamedd350@gmail.com</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -347,10 +1302,344 @@
           <ul id="all-leaderboard-list"></ul>
         </div>
       </section>
+
+      <!-- Upcoming Features -->
+      <section id="upcoming" class="section panel-section hidden">
+        <div class="panel upcoming-panel">
+          <h2 class="heading">🚀 Future Work</h2>
+          <p class="upcoming-subtitle">While DevGuide has reached a functional stage, we believe there is still much room for growth and improvement. In the future, we plan to implement the following enhancements:</p>
+          
+          <div class="upcoming-grid">
+            <!-- Expanding Learning Tracks -->
+            <div class="upcoming-card tracks-card">
+              <div class="upcoming-card-header">
+                <div class="upcoming-icon">📚</div>
+                <span class="upcoming-badge planning">Planning</span>
+              </div>
+              <h3 class="upcoming-title">Expanding Learning Tracks</h3>
+              <p class="upcoming-description">Adding more tracks that cover different areas of programming, such as mobile development, game development, data science, and cybersecurity, to serve a wider range of learners with varying goals.</p>
+              <div class="upcoming-features">
+                <span class="feature-tag">Mobile Development</span>
+                <span class="feature-tag">Game Development</span>
+                <span class="feature-tag">Data Science</span>
+                <span class="feature-tag">Cybersecurity</span>
+              </div>
+              <div class="upcoming-progress">
+                <div class="progress-bar-upcoming" style="width: 30%"></div>
+                <span class="progress-text">30% Complete</span>
+              </div>
+            </div>
+
+            <!-- Supporting Multiple Languages -->
+            <div class="upcoming-card languages-card">
+              <div class="upcoming-card-header">
+                <div class="upcoming-icon">🌍</div>
+                <span class="upcoming-badge coming-soon">Coming Soon</span>
+              </div>
+              <h3 class="upcoming-title">Supporting Multiple Languages</h3>
+              <p class="upcoming-description">Enhancing accessibility by providing multilingual support, allowing non-English speakers to navigate and benefit from the platform in their native languages.</p>
+              <div class="upcoming-features">
+                <span class="feature-tag">Arabic Support</span>
+                <span class="feature-tag">Spanish Support</span>
+                <span class="feature-tag">French Support</span>
+                <span class="feature-tag">German Support</span>
+              </div>
+              <div class="upcoming-progress">
+                <div class="progress-bar-upcoming" style="width: 20%"></div>
+                <span class="progress-text">20% Complete</span>
+              </div>
+            </div>
+
+            <!-- Live Tech Updates Page -->
+            <div class="upcoming-card tech-updates-card">
+              <div class="upcoming-card-header">
+                <div class="upcoming-icon">📰</div>
+                <span class="upcoming-badge in-development">In Development</span>
+              </div>
+              <h3 class="upcoming-title">Live Tech Updates Page</h3>
+              <p class="upcoming-description">Introducing a dedicated section within the app that provides users with the latest news, trends, and updates from the technology and programming world, helping them stay informed and inspired.</p>
+              <div class="upcoming-features">
+                <span class="feature-tag">Latest News</span>
+                <span class="feature-tag">Tech Trends</span>
+                <span class="feature-tag">Industry Updates</span>
+                <span class="feature-tag">Real-time Feed</span>
+              </div>
+              <div class="upcoming-progress">
+                <div class="progress-bar-upcoming" style="width: 45%"></div>
+                <span class="progress-text">45% Complete</span>
+              </div>
+            </div>
+
+            <!-- Interactive Content -->
+            <div class="upcoming-card interactive-card">
+              <div class="upcoming-card-header">
+                <div class="upcoming-icon">⚡</div>
+                <span class="upcoming-badge beta">Beta Testing</span>
+              </div>
+              <h3 class="upcoming-title">Interactive Content</h3>
+              <p class="upcoming-description">Integrating interactive code snippets and real-time editors to allow users to practice and run code directly within the app.</p>
+              <div class="upcoming-features">
+                <span class="feature-tag">Code Editor</span>
+                <span class="feature-tag">Live Preview</span>
+                <span class="feature-tag">Code Execution</span>
+                <span class="feature-tag">Multiple Languages</span>
+              </div>
+              <div class="upcoming-progress">
+                <div class="progress-bar-upcoming" style="width: 70%"></div>
+                <span class="progress-text">70% Complete</span>
+              </div>
+            </div>
+
+            <!-- Community and Feedback -->
+            <div class="upcoming-card community-feedback-card">
+              <div class="upcoming-card-header">
+                <div class="upcoming-icon">💬</div>
+                <span class="upcoming-badge coming-soon">Coming Soon</span>
+              </div>
+              <h3 class="upcoming-title">Enhanced Community & Feedback</h3>
+              <p class="upcoming-description">Creating a more comprehensive space for users to give feedback, engage in discussions, and suggest new features or content improvements.</p>
+              <div class="upcoming-features">
+                <span class="feature-tag">Feedback System</span>
+                <span class="feature-tag">Discussion Forums</span>
+                <span class="feature-tag">Feature Requests</span>
+                <span class="feature-tag">User Voting</span>
+              </div>
+              <div class="upcoming-progress">
+                <div class="progress-bar-upcoming" style="width: 55%"></div>
+                <span class="progress-text">55% Complete</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="upcoming-footer">
+            <div class="future-vision">
+              <h3>🎯 Our Vision</h3>
+              <p class="vision-text">These additions aim to make DevGuide not only a source of documentation, but a dynamic learning environment that evolves with the needs of its users and the rapid growth of the tech industry.</p>
+            </div>
+            <div class="stay-updated">
+              <h3>🔔 Stay Updated</h3>
+              <p>Want to be the first to know when these features launch?</p>
+              <div class="notify-form">
+                <input type="email" placeholder="Enter your email" class="notify-input">
+                <button class="notify-btn">Notify Me</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mobile App Download -->
+      <section id="mobile-app" class="section panel-section hidden">
+        <div class="panel mobile-app-panel">
+          <div class="mobile-app-header">
+            <div class="app-icon-container">
+              <div class="app-icon">
+                <img src="Layer_1.svg" alt="DevGuide Mobile App" class="app-icon-img">
+                <div class="app-icon-glow"></div>
+              </div>
+            </div>
+            <h2 class="heading">📱 Get DevGuide App</h2>
+            <p class="mobile-app-subtitle">Take your development learning journey on the go! Download the official DevGuide Android app and master programming skills from anywhere, anytime.</p>
+          </div>
+
+          <div class="mobile-app-content">
+            <div class="app-features-grid">
+              <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Optimized</h3>
+                <p>Learn programming on the go with mobile-friendly interface</p>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3>Smart Chatbot</h3>
+                <p>Get instant help with our AI-powered learning assistant</p>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Learning Tracks</h3>
+                <p>Structured learning paths for different programming languages</p>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <h3>Interactive Content</h3>
+                <p>Hands-on tutorials and practical coding examples</p>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Easy Navigation</h3>
+                <p>Find topics and resources quickly with intuitive design</p>
+              </div>
+              <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & Smooth</h3>
+                <p>Optimized performance for the best mobile learning experience</p>
+              </div>
+            </div>
+
+            <div class="download-section">
+              <div class="download-card">
+                <div class="download-header">
+                  <div class="android-icon">
+                    <svg viewBox="0 0 24 24" fill="#a4c639">
+                      <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997zm-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997zm11.4045-6.02l1.9973-3.4592a.416.416 0 00-.7094-.4226l-2.0679 3.5812c-.8750-.3968-1.8548-.6191-2.8781-.6191-.024 0-.0469.0037-.0709.0049-.023-.0012-.0469-.0049-.0709-.0049-1.0233 0-2.0031.2223-2.8781.6191l-2.0679-3.5812c-.2077-.3592-.7077-.1592-.7094.4226l1.9973 3.4592c-2.31 1.1969-3.9194 3.5062-3.9194 6.2838h16c0-2.7776-1.6094-5.0869-3.9194-6.2838z"/>
+                    </svg>
+                  </div>
+                  <div class="download-info">
+                    <h3>DevGuide - Android App</h3>
+                    <p>Get the official DevGuide development learning app</p>
+                  </div>
+                </div>
+                
+                <div class="app-details">
+                  <div class="detail-row">
+                    <span class="detail-label">Version:</span>
+                    <span class="detail-value">1.0.0</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Size:</span>
+                    <span class="detail-value">91.0 MB</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Requires:</span>
+                    <span class="detail-value">Android 6.0+</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Updated:</span>
+                    <span class="detail-value">January 2025</span>
+                  </div>
+                </div>
+
+                <div class="download-buttons">
+                  <button class="download-btn primary-download" onclick="downloadAPK()">
+                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7,10 12,15 17,10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>Download APK</span>
+                  </button>
+                  <button class="download-btn secondary-download" onclick="showInstallGuide()">
+                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M12 16v-4"/>
+                      <path d="M12 8h.01"/>
+                    </svg>
+                    <span>Installation Guide</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="security-info">
+                <div class="security-badge">
+                  <svg class="security-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
+                  <div class="security-text">
+                    <h4>Safe & Secure</h4>
+                    <p>Our APK is signed and verified. No malware or suspicious code.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Browse Full Site Option for Mobile Users -->
+              <div class="mobile-site-options" id="mobile-site-options" style="display: none;">
+                <div class="site-option-card">
+                  <div class="option-header">
+                    <h4>💻 Prefer the Full Experience?</h4>
+                    <p>You can also browse our full website with all features available</p>
+                  </div>
+                  <button class="download-btn secondary-download" onclick="browseFullSite()">
+                    <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 3h18v18H3z"/>
+                      <path d="M9 9h6v6H9z"/>
+                    </svg>
+                    <span>Browse Full Site</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="installation-guide hidden" id="install-guide">
+              <h3>📋 Installation Guide</h3>
+              <div class="steps-container">
+                <div class="step">
+                  <div class="step-number">1</div>
+                  <div class="step-content">
+                    <h4>Enable Unknown Sources</h4>
+                    <p>Go to Settings > Security > Enable "Unknown Sources" or "Install unknown apps"</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <div class="step-content">
+                    <h4>Download APK</h4>
+                    <p>Click the "Download APK" button above to get the installation file</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <div class="step-content">
+                    <h4>Install App</h4>
+                    <p>Open the downloaded file and tap "Install" when prompted</p>
+                  </div>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <div class="step-content">
+                    <h4>Launch & Enjoy</h4>
+                    <p>Find the DevGuide icon in your app drawer and start learning!</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mobile-screenshots">
+              <h3>📸 App Preview</h3>
+              <div class="screenshots-container">
+                <div class="screenshot-placeholder">
+                  <div class="phone-mockup">
+                    <div class="phone-screen">
+                      <div class="phone-status-bar">
+                        <span class="time">9:41</span>
+                        <div class="status-icons">
+                          <div class="signal-bars">
+                            <span></span><span></span><span></span><span></span>
+                          </div>
+                          <div class="wifi-icon">📶</div>
+                          <div class="battery-icon">🔋</div>
+                        </div>
+                      </div>
+                      <div class="screen-content">
+                        <div class="app-splash">
+                          <div class="splash-logo">
+                            <img src="Layer_1.svg" alt="DGUD">
+                          </div>
+                        </div>
+                        <div class="onboarding-bottom">
+                          <div class="swipe-instruction">
+                            <span>Swipe to next</span>
+                            <div class="swipe-arrow">→</div>
+                          </div>
+                          <div class="pagination-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="phone-home-indicator"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- Floating chatbot button inside content-wrapper -->
-    <button id="chatbot-float" class="chatbot-float" aria-label="Chatbot">
+    <button id="chatbot-float" class="chatbot-float" aria-label="DevGuide Chatbot">
       <img src="bot.png" alt="Bot" />
     </button>
   </main>
@@ -389,7 +1678,7 @@
   <div id="chat-modal" class="modal hidden">
     <div class="modal-content">
       <div class="chat-header">
-        <h3 class="chat-title">Chatbot</h3>
+        <h3 class="chat-title">DevGuide Chatbot</h3>
         <div class="chat-controls">
           <button id="chat-modal-expand" class="modal-expand" aria-label="Expand Chat">&#x26F6;</button>
           <button class="modal-close-chat" aria-label="Close Chat">&times;</button>

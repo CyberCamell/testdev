@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/responsive_helper.dart';
+import '../Widgets/base_screen.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});
@@ -10,9 +11,9 @@ class ContactUs extends StatelessWidget {
   Future<void> _copyToClipboard(BuildContext context, String text) async {
     await Clipboard.setData(ClipboardData(text: text));
     if (context.mounted) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Copied to clipboard')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Copied to clipboard')),
+      );
     }
   }
 
@@ -25,328 +26,387 @@ class ContactUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(
-          ResponsiveHelper.getSpacing(
-            context,
-            small: 80,
-            medium: 100,
-            large: 120,
-          ),
-        ),
-        child: AppBar(
-          backgroundColor: const Color(0xFF4DA6FF),
-          centerTitle: true,
-          leading: Padding(
-            padding: EdgeInsets.only(
-              top: ResponsiveHelper.getSpacing(
-                context,
-                small: 12,
-                medium: 16,
-                large: 20,
-              ),
-            ),
-            child: IconButton(
-              icon: Icon(
-                FontAwesomeIcons.arrowLeft,
-                color: Colors.white,
-                size: ResponsiveHelper.getFontSize(
-                  context,
-                  small: 20,
-                  medium: 24,
-                  large: 28,
-                ),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-          title: Padding(
-            padding: EdgeInsets.only(
-              top: ResponsiveHelper.getSpacing(
-                context,
-                small: 12,
-                medium: 16,
-                large: 20,
-              ),
-            ),
-            child: Text(
-              'Contact Us',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: ResponsiveHelper.getFontSize(
-                  context,
-                  small: 24,
-                  medium: 28,
-                  large: 32,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
+    return BaseScreen(
+      extendBodyBehindAppBar: true,
+      child: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF4DA6FF), Colors.white],
+            colors: [Color(0xFF4B8EF6), Color(0xFFB3D4FF)],
           ),
         ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: ResponsiveHelper.getSpacing(
-                context,
-                small: 60,
-                medium: 80,
-                large: 100,
-              ),
-            ),
-            Text(
-              'If you have any inquiries get in \n touch with us',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: ResponsiveHelper.getFontSize(
-                  context,
-                  small: 16,
-                  medium: 18,
-                  large: 20,
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 120,
+                pinned: true,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pop(context),
                 ),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: ResponsiveHelper.getSpacing(
-                context,
-                small: 8,
-                medium: 10,
-                large: 12,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 20,
-                  medium: 25,
-                  large: 30,
-                ),
-                vertical: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 4,
-                  medium: 5,
-                  large: 6,
-                ),
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.black, width: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.phone,
-                    size: ResponsiveHelper.getFontSize(
-                      context,
-                      small: 20,
-                      medium: 22,
-                      large: 25,
-                    ),
-                    color: const Color(0xff2384F5),
-                  ),
+                flexibleSpace: FlexibleSpaceBar(
                   title: Text(
-                    '0502727486',
+                    'Meet Our Team',
                     style: TextStyle(
                       fontSize: ResponsiveHelper.getFontSize(
                         context,
-                        small: 14,
-                        medium: 16,
-                        large: 18,
+                        small: 24,
+                        medium: 28,
+                        large: 32,
                       ),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.copy,
-                      color: const Color(0xff2384F5),
-                      size: ResponsiveHelper.getFontSize(
-                        context,
-                        small: 20,
-                        medium: 22,
-                        large: 25,
-                      ),
-                    ),
-                    onPressed:
-                        () => _copyToClipboard(context, '0502727486'),
-                  ),
+                  centerTitle: true,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 20,
-                  medium: 25,
-                  large: 30,
-                ),
-                vertical: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 4,
-                  medium: 5,
-                  large: 6,
-                ),
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(color: Colors.black, width: 0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    size: ResponsiveHelper.getFontSize(
-                      context,
-                      small: 20,
-                      medium: 22,
-                      large: 25,
-                    ),
-                    color: const Color(0xff2384F5),
-                  ),
-                  title: Text(
-                    'Devg@yahoo.com',
-                    style: TextStyle(
-                      fontSize: ResponsiveHelper.getFontSize(
-                        context,
-                        small: 14,
-                        medium: 16,
-                        large: 18,
-                      ),
-                    ),
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.copy,
-                      color: const Color(0xff2384F5),
-                      size: ResponsiveHelper.getFontSize(
-                        context,
-                        small: 20,
-                        medium: 22,
-                        large: 25,
-                      ),
-                    ),
-                    onPressed:
-                        () => _copyToClipboard(context, 'Devg@yahoo.com'),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 16,
-                  medium: 20,
-                  large: 24,
-                ),
-                vertical: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 8,
-                  medium: 10,
-                  large: 12,
-                ),
-              ),
-              child: Container(
-                width: double.infinity,
-                height: ResponsiveHelper.getSpacing(
-                  context,
-                  small: 60,
-                  medium: 70,
-                  large: 80,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
+              SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsets.all(
-                    ResponsiveHelper.getSpacing(
-                      context,
-                      small: 8,
-                      medium: 10,
-                      large: 12,
-                    ),
-                  ),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Social media',
+                        'Get to know the talented individuals behind DevGuide',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.black,
                           fontSize: ResponsiveHelper.getFontSize(
                             context,
-                            small: 10,
-                            medium: 12,
-                            large: 14,
+                            small: 16,
+                            medium: 18,
+                            large: 20,
                           ),
-                          fontWeight: FontWeight.bold,
+                          color: Colors.white.withOpacity(0.9),
+                          height: 1.4,
                         ),
                       ),
-                      SizedBox(
-                        height: ResponsiveHelper.getSpacing(
-                          context,
-                          small: 6,
-                          medium: 8,
-                          large: 10,
+                      const SizedBox(height: 32),
+                      _buildTeamSection(context),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTeamSection(BuildContext context) {
+    return Column(
+      children: [
+        _buildTeamCard(
+          context: context,
+          name: 'Ibrahem Elgamal',
+          role: 'Backend & AI Developer',
+          description: 'Backend and AI specialist passionate about creating robust systems and intelligent solutions.',
+          skills: ['Python', 'Django', 'REST API'],
+          email: 'ibraheme024@gmail.com',
+          linkedin: 'https://linkedin.com/in/cybercamel',
+          imagePath: 'Assets/Images/avatar.png',
+          isLeader: true,
+          roleColor: const Color(0xFF4B8EF6),
+        ),
+        const SizedBox(height: 16),
+        _buildTeamCard(
+          context: context,
+          name: 'Ahmed Kamal',
+          role: 'Mobile Developer',
+          description: 'Mobile app developer creating seamless cross-platform experiences with Flutter.',
+          skills: ['Flutter', 'Dart', 'Mobile UI'],
+          email: 'Ahmed2003kamal1024@gmail.com',
+          linkedin: 'https://linkedin.com/in/ahmed-kamal-b1b295233',
+          imagePath: 'Assets/Images/avatar.png',
+          roleColor: const Color(0xFF10B981),
+        ),
+        const SizedBox(height: 16),
+        _buildTeamCard(
+          context: context,
+          name: 'Ahmed Aboshady',
+          role: 'Mobile Developer',
+          description: 'Flutter specialist focused on building intuitive and performant mobile applications.',
+          skills: ['Flutter', 'Dart', 'Mobile UI'],
+          email: 'aboshadyahmed74@gmail.com',
+          imagePath: 'Assets/Images/avatar.png',
+          roleColor: const Color(0xFF10B981),
+        ),
+        const SizedBox(height: 16),
+        _buildTeamCard(
+          context: context,
+          name: 'Mohamed Elsaaed',
+          role: 'Frontend Developer',
+          description: 'Frontend developer crafting beautiful and responsive web interfaces with modern technologies.',
+          skills: ['HTML', 'CSS', 'JavaScript'],
+          email: 'mohamedelsaeed1101@gmail.com',
+          linkedin: 'https://linkedin.com/in/mohamed-elsaeed-15a77a2aa/',
+          imagePath: 'Assets/Images/avatar.png',
+          roleColor: const Color(0xFFF59E0B),
+        ),
+        const SizedBox(height: 16),
+        _buildTeamCard(
+          context: context,
+          name: 'Shahd Elbana',
+          role: 'UI/UX Designer',
+          description: 'UI/UX designer creating intuitive and delightful user experiences through thoughtful design.',
+          skills: ['Figma', 'UI Design', 'UX Research'],
+          email: 'shahdmohamedd350@gmail.com',
+          imagePath: 'Assets/Images/avatar.png',
+          roleColor: const Color(0xFF8B5CF6),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTeamCard({
+    required BuildContext context,
+    required String name,
+    required String role,
+    required String description,
+    required List<String> skills,
+    required String email,
+    String? linkedin,
+    required String imagePath,
+    bool isLeader = false,
+    required Color roleColor,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withOpacity(0.2)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            // Header with avatar and role badge
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: isLeader ? const Color(0xFFFFD700) : Colors.white.withOpacity(0.3),
+                          width: 3,
                         ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: roleColor.withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
                       ),
-                      InkWell(
-                        onTap:
-                            () => _launchUrl('mailto:info@metmans.edu.eg'),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.link,
-                              color: const Color(0xff2384F5),
-                              size: ResponsiveHelper.getFontSize(
-                                context,
-                                small: 16,
-                                medium: 18,
-                                large: 20,
-                              ),
-                            ),
-                            SizedBox(
-                              width: ResponsiveHelper.getSpacing(
-                                context,
-                                small: 4,
-                                medium: 5,
-                                large: 6,
-                              ),
-                            ),
-                            Text(
-                              'info@metmans.edu.eg',
-                              style: TextStyle(
-                                fontSize: ResponsiveHelper.getFontSize(
-                                  context,
-                                  small: 12,
-                                  medium: 14,
-                                  large: 16,
+                      child: ClipOval(
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: LinearGradient(
+                                  colors: [roleColor.withOpacity(0.7), roleColor],
                                 ),
                               ),
+                              child: const Icon(
+                                Icons.person,
+                                size: 35,
+                                color: Colors.white,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    if (isLeader)
+                      Positioned(
+                        top: -5,
+                        right: -5,
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFFFD700),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.star,
+                            size: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: TextStyle(
+                          fontSize: ResponsiveHelper.getFontSize(
+                            context,
+                            small: 18,
+                            medium: 20,
+                            large: 22,
+                          ),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: roleColor.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: roleColor.withOpacity(0.5)),
+                        ),
+                        child: Text(
+                          role,
+                          style: TextStyle(
+                            fontSize: ResponsiveHelper.getFontSize(
+                              context,
+                              small: 12,
+                              medium: 13,
+                              large: 14,
                             ),
-                          ],
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            
+            // Description
+            Text(
+              description,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(
+                  context,
+                  small: 14,
+                  medium: 15,
+                  large: 16,
+                ),
+                color: Colors.white.withOpacity(0.9),
+                height: 1.4,
+              ),
+            ),
+            const SizedBox(height: 16),
+            
+            // Skills
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: skills.map((skill) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
+                ),
+                child: Text(
+                  skill,
+                  style: TextStyle(
+                    fontSize: ResponsiveHelper.getFontSize(
+                      context,
+                      small: 11,
+                      medium: 12,
+                      large: 13,
+                    ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              )).toList(),
+            ),
+            const SizedBox(height: 16),
+            
+            // Contact links
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildContactButton(
+                  context: context,
+                  icon: Icons.email,
+                  label: 'Email',
+                  onTap: () => _launchUrl('mailto:$email'),
+                ),
+                if (linkedin != null)
+                  _buildContactButton(
+                    context: context,
+                    icon: FontAwesomeIcons.linkedin,
+                    label: 'LinkedIn',
+                    onTap: () => _launchUrl(linkedin),
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContactButton({
+    required BuildContext context,
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.white.withOpacity(0.3)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 16,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(
+                  context,
+                  small: 12,
+                  medium: 13,
+                  large: 14,
+                ),
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
