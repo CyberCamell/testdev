@@ -308,11 +308,11 @@ class _LanguageListPageState extends State<LanguageListPage> {
                                                         color: const Color(0xFF4B8EF6).withOpacity(0.1),
                                                         borderRadius: BorderRadius.circular(12),
                                                       ),
-                                                      child: language.flagUrl != null
+                                                      child: language.icon != null && language.icon!.isNotEmpty
                                                           ? ClipRRect(
                                                               borderRadius: BorderRadius.circular(12),
                                                               child: Image.network(
-                                                                language.flagUrl!,
+                                                                language.icon!,
                                                                 width: 48,
                                                                 height: 48,
                                                                 fit: BoxFit.cover,
