@@ -5,6 +5,7 @@ class CacheService {
   static const String _userDataKey = 'user_data';
   static const String _tokensKey = 'tokens';
   static const String _settingsKey = 'settings';
+  static const String _firstTimeKey = 'first_time_app_open';
 
   static Future<void> saveUserData(Map<String, dynamic> userData) async {
     try {
@@ -84,6 +85,26 @@ class CacheService {
       await prefs.clear();
     } catch (e) {
       print('Error clearing cache: $e');
+      rethrow;
+    }
+  }
+
+  static Future<bool> isFirstTimeAppOpen() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return prefs.getBool(_firstTimeKey) ?? true; // Default to true for first time
+    } catch (e) {
+      print('Error checking first time app open: $e');
+      return true; // Default to true if error
+    }
+  }
+
+  static Future<void> setFirstTimeAppOpenComplete() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(_firstTimeKey, false);
+    } catch (e) {
+      print('Error setting first time app open complete: $e');
       rethrow;
     }
   }

@@ -38,12 +38,30 @@ class DevGuideApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: Colors.blue,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.blue,
+        ).copyWith(
+          primary: Colors.blue,
+          onPrimary: Colors.white, // This ensures white text on primary colored buttons
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white, // Set default text color to white for all ElevatedButtons
+            foregroundColor: Colors.white, // Button text color
+            backgroundColor: Colors.blue, // Button background color
           ),
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.white, // TextButton text color
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white, // OutlinedButton text color
+          ),
+        ),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),

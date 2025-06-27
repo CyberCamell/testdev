@@ -1,4 +1,5 @@
 import 'package:devguide/routes/app_routs.dart';
+import 'package:devguide/Services/cache_service.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_button.dart';
 import 'Login_Screen.dart';
@@ -53,14 +54,16 @@ class WelcomeScreen extends StatelessWidget {
           const Spacer(),
           CustomButton(
             text: "Sign Up",
-            onPressed: () {
+            onPressed: () async {
+              await CacheService.setFirstTimeAppOpenComplete();
               Navigator.pushNamed(context, AppRoutes.signup);
             },
           ),
           const SizedBox(height: 12),
           Center(
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
+                await CacheService.setFirstTimeAppOpenComplete();
                 Navigator.push(
                   context,
                   MaterialPageRoute(

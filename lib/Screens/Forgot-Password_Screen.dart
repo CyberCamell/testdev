@@ -63,7 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Navigator.pop(context);
                     Navigator.pushNamed(context, '/verify-otp');
                   },
-                  child: const Text('Continue to Verify OTP'),
+                                        child: const Text('Continue to Verify OTP', style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
@@ -162,7 +162,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             )
                             : const Text(
                               'Reset Password',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                   ),
                 ),

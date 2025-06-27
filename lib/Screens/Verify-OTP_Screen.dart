@@ -213,7 +213,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
                             )
                             : const Text(
                               'Verify and Reset',
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                   ),
                 ),

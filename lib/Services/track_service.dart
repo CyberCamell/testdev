@@ -348,20 +348,9 @@ class TrackService {
         final data = jsonDecode(response.body);
         // Extract languages from the track data
         final List<dynamic> languagesData = data['languages'] ?? [];
-        if (kDebugMode) {
-          print("Raw languages data: $languagesData");
-        }
         final languages = languagesData.map((json) => Language.fromJson(json)).toList();
         if (kDebugMode) {
           print("Parsed ${languages.length} languages for track $trackId");
-          for (var lang in languages) {
-            print("Language: ${lang.name}");
-            print("  - ID: ${lang.id}");
-            print("  - Code: ${lang.code}");
-            print("  - Icon: ${lang.icon}");
-            print("  - FlagUrl: ${lang.flagUrl}");
-            print("  - Description: ${lang.description}");
-          }
         }
         return languages;
       } else {

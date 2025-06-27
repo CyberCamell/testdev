@@ -57,9 +57,6 @@ class _LanguageListPageState extends State<LanguageListPage> {
 
       if (kDebugMode) {
         print("Received ${languages.length} languages and ${favorites.length} favorites");
-        for (var lang in languages) {
-          print("Language: ${lang.name}, Icon: ${lang.icon}, FlagUrl: ${lang.flagUrl}");
-        }
       }
 
       if (mounted) {
@@ -311,7 +308,28 @@ class _LanguageListPageState extends State<LanguageListPage> {
                                                         color: const Color(0xFF4B8EF6).withOpacity(0.1),
                                                         borderRadius: BorderRadius.circular(12),
                                                       ),
-                                                      child: _buildLanguageIcon(language),
+                                                      child: language.flagUrl != null
+                                                          ? ClipRRect(
+                                                              borderRadius: BorderRadius.circular(12),
+                                                              child: Image.network(
+                                                                language.flagUrl!,
+                                                                width: 48,
+                                                                height: 48,
+                                                                fit: BoxFit.cover,
+                                                                errorBuilder: (context, error, stackTrace) {
+                                                                  return const Icon(
+                                                                    Icons.language,
+                                                                    color: Color(0xFF4B8EF6),
+                                                                    size: 24,
+                                                                  );
+                                                                },
+                                                              ),
+                                                            )
+                                                          : const Icon(
+                                                              Icons.language,
+                                                              color: Color(0xFF4B8EF6),
+                                                              size: 24,
+                                                            ),
                                                     ),
                                                     const SizedBox(width: 16),
                                                     Expanded(
@@ -386,124 +404,5 @@ class _LanguageListPageState extends State<LanguageListPage> {
         ),
       ),
     );
-  }
-
-  Widget _buildLanguageIcon(Language language) {
-    if (kDebugMode) {
-      print("Language: ${language.name}, API Icon: ${language.icon}");
-    }
-
-    // Always try API icon first if it exists
-    if (language.icon != null && language.icon!.isNotEmpty) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Image.network(
-          language.icon!,
-          width: 48,
-          height: 48,
-          fit: BoxFit.contain,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF4B8EF6),
-                strokeWidth: 2,
-              ),
-            );
-          },
-          errorBuilder: (context, error, stackTrace) {
-            if (kDebugMode) {
-              print("API icon failed for ${language.name}, trying CDN fallback");
-              print("Failed API Icon URL: ${language.icon}");
-            }
-            // If API icon fails, try CDN fallback
-            return _buildFallbackIcon(language);
-          },
-        ),
-      );
-    } else {
-      // If no API icon, use CDN fallback
-      return _buildFallbackIcon(language);
-    }
-  }
-
-  Widget _buildFallbackIcon(Language language) {
-    String? fallbackIconUrl;
-    
-    // CDN fallback icons for common languages
-    switch (language.name.toLowerCase()) {
-      case 'html':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg';
-        break;
-      case 'css':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg';
-        break;
-      case 'javascript':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg';
-        break;
-      case 'python':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg';
-        break;
-      case 'java':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg';
-        break;
-      case 'php':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg';
-        break;
-      case 'c++':
-      case 'cpp':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg';
-        break;
-      case 'c':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg';
-        break;
-      case 'react':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg';
-        break;
-      case 'node.js':
-      case 'nodejs':
-        fallbackIconUrl = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg';
-        break;
-    }
-
-    if (fallbackIconUrl != null) {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: Image.network(
-          fallbackIconUrl,
-          width: 48,
-          height: 48,
-          fit: BoxFit.contain,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF4B8EF6),
-                strokeWidth: 2,
-              ),
-            );
-          },
-          errorBuilder: (context, error, stackTrace) {
-            if (kDebugMode) {
-              print("CDN fallback also failed for ${language.name}");
-              print("Failed CDN Icon URL: $fallbackIconUrl");
-            }
-            // Final fallback to generic icon
-            return const Icon(
-              Icons.language,
-              color: Color(0xFF4B8EF6),
-              size: 24,
-            );
-          },
-        ),
-      );
-    } else {
-      // No CDN fallback available, use generic icon
-      return const Icon(
-        Icons.language,
-        color: Color(0xFF4B8EF6),
-        size: 24,
-      );
-    }
   }
 } 

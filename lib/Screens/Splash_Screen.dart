@@ -1,4 +1,5 @@
 import 'package:devguide/Services/auth_service.dart';
+import 'package:devguide/Services/cache_service.dart';
 import 'package:devguide/Screens/Welcome_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,10 +36,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> checkLoginStatus() async {
     await Future.delayed(const Duration(seconds: 2));
-    final isLoggedIn = await AuthService.isLoggedIn();
-    if (mounted) {
-      if (isLoggedIn) {
-        Navigator.pushReplacementNamed(context, '/home');
+    
+    // Check if it's the first time opening the app
+    final isFirstTime = await CacheService.isFirstTimeAppOpen();
+    
+    if (isFirstTime) {
+      // First time opening - show welcome screen after splash
+      return; // Let the PageView handle showing welcome screen
+    } else {
+      // Not first time - check login status and navigate accordingly
+      final isLoggedIn = await AuthService.isLoggedIn();
+      if (mounted) {
+        if (isLoggedIn) {
+          Navigator.pushReplacementNamed(context, '/home');
+        } else {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
       }
     }
   }

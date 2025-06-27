@@ -7,8 +7,67 @@ import '../Widgets/Custom_button.dart';
 import '../Widgets/settings_option_card.dart';
 import '../Services/auth_service.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  bool _isLoggedIn = false;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    try {
+      final isLoggedIn = await AuthService.isLoggedIn();
+      setState(() {
+        _isLoggedIn = isLoggedIn;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoggedIn = false;
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _handleAuthAction() async {
+    if (_isLoggedIn) {
+      // Handle logout
+      try {
+        await AuthService.logout();
+        if (context.mounted) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/login',
+            (route) => false,
+          );
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'Error logging out. Please try again.',
+              ),
+            ),
+          );
+        }
+      }
+    } else {
+      // Handle login - navigate to login screen
+      if (context.mounted) {
+        Navigator.pushNamed(context, '/login');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,30 +149,12 @@ class Settings extends StatelessWidget {
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(24),
-                  child: CustomButton(
-                    text: 'Log out',
-                    onPressed: () async {
-                      try {
-                        await AuthService.logout();
-                        if (context.mounted) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/login', // Make sure this route exists in your app
-                            (route) => false,
-                          );
-                        }
-                      } catch (e) {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                'Error logging out. Please try again.',
-                              ),
-                            ),
-                          );
-                        }
-                      }
-                    },
-                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : CustomButton(
+                          text: _isLoggedIn ? 'Log out' : 'Log in',
+                          onPressed: _handleAuthAction,
+                        ),
                 ),
               ],
             ),

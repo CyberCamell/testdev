@@ -66,7 +66,7 @@ void showCustomEmailDialog({
                       }
                       Navigator.pop(context);
                     },
-                    child: const Text("Confirm"),
+                    child: const Text("Confirm", style: TextStyle(color: Colors.white)),
                   ),
                 )
               ],

@@ -98,7 +98,7 @@ class TrackCard extends StatelessWidget {
                     ),
                     minimumSize: const Size(double.infinity, 36),
                   ),
-                  child: const Text("Explore"),
+                  child: const Text("Explore", style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
