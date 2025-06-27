@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'http_client.dart';
 
 class AuthService {
   static const String _baseUrl =
@@ -125,7 +126,8 @@ class AuthService {
       final refreshToken = await getRefreshToken();
       if (refreshToken == null) return null;
 
-      final response = await http.post(
+      final client = CustomHttpClient.getClient();
+      final response = await client.post(
         Uri.parse('$_baseUrl/api/auth/token/refresh/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'refresh': refreshToken}),
@@ -218,7 +220,8 @@ class AuthService {
       final token = await getAccessToken();
       if (token != null) {
         // Make API call to logout
-        final response = await http.post(
+        final client = CustomHttpClient.getClient();
+        final response = await client.post(
           Uri.parse('$_baseUrl/api/auth/logout/'),
           headers: {
             'Content-Type': 'application/json',
@@ -347,7 +350,8 @@ class AuthService {
         return null;
       }
 
-      final response = await http.patch(
+      final client = CustomHttpClient.getClient();
+      final response = await client.patch(
         Uri.parse('$_baseUrl/api/auth/update-name/'),
         headers: {
           'Content-Type': 'application/json',
@@ -389,7 +393,8 @@ class AuthService {
         return null;
       }
 
-      final response = await http.patch(
+      final client = CustomHttpClient.getClient();
+      final response = await client.patch(
         Uri.parse('$_baseUrl/api/auth/update-email/'),
         headers: {
           'Content-Type': 'application/json',
@@ -438,7 +443,8 @@ class AuthService {
         print('Updating password with token: ${token.substring(0, 20)}...');
       }
 
-      final response = await http.patch(
+      final client = CustomHttpClient.getClient();
+      final response = await client.patch(
         Uri.parse('$_baseUrl/api/auth/update-password/'),
         headers: {
           'Content-Type': 'application/json',
@@ -471,6 +477,7 @@ class AuthService {
         return null;
       }
 
+      final client = CustomHttpClient.getClient();
       final request = http.MultipartRequest(
         'PATCH',
         Uri.parse('$_baseUrl/api/auth/update-profile-picture/'),
@@ -481,7 +488,7 @@ class AuthService {
       final file = await http.MultipartFile.fromPath('profile_picture', imagePath);
       request.files.add(file);
 
-      final response = await request.send();
+      final response = await client.send(request);
       final responseData = await response.stream.bytesToString();
 
       if (kDebugMode) {

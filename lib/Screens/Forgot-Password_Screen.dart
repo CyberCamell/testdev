@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Services/auth_service.dart';
+import '../Services/http_client.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -25,7 +26,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final response = await http.post(
+      final client = CustomHttpClient.getClient();
+      final response = await client.post(
         Uri.parse('${AuthService.baseUrl}/api/auth/reset-password/'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': _emailController.text.trim()}),

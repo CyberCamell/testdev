@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Services/auth_service.dart';
+import '../Services/http_client.dart';
 
 class VerifyOtpScreen extends StatefulWidget {
   const VerifyOtpScreen({super.key});
@@ -53,7 +54,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
         throw Exception('Reset token not found. Please request a new password reset.');
       }
 
-      final response = await http.post(
+      final client = CustomHttpClient.getClient();
+      final response = await client.post(
         Uri.parse('${AuthService.baseUrl}/api/auth/verify-reset/'),
         headers: {
           'Content-Type': 'application/json',

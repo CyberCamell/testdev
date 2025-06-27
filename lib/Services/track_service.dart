@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'auth_service.dart'; // Import AuthService to get the token
+import 'http_client.dart'; // Import custom HTTP client
 import '../models/track.dart'; // Import the Track model
 import '../models/language.dart'; // Import the Language model
 import '../models/term.dart';
@@ -25,7 +26,8 @@ class TrackService {
         if (token != null) 'Authorization': 'Bearer $token',
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 
@@ -67,7 +69,8 @@ class TrackService {
         "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 
@@ -105,7 +108,8 @@ class TrackService {
         "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .post(url, headers: headers)
           .timeout(const Duration(seconds: 10));
 
@@ -139,7 +143,8 @@ class TrackService {
         "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .delete(url, headers: headers)
           .timeout(const Duration(seconds: 10));
 
@@ -170,7 +175,8 @@ class TrackService {
         "Content-Type": "application/json",
         if (token != null) "Authorization": "Bearer $token",
       };
-      final response = await http.get(url, headers: headers);
+      final client = CustomHttpClient.getClient();
+      final response = await client.get(url, headers: headers);
       if (response.statusCode == 200) {
         return Track.fromJson(jsonDecode(response.body));
       }
@@ -193,7 +199,8 @@ class TrackService {
         if (token != null) "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 
@@ -228,7 +235,8 @@ class TrackService {
         "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 
@@ -260,7 +268,8 @@ class TrackService {
         "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .post(url, headers: headers)
           .timeout(const Duration(seconds: 10));
 
@@ -291,7 +300,8 @@ class TrackService {
         "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .delete(url, headers: headers)
           .timeout(const Duration(seconds: 10));
 
@@ -324,7 +334,8 @@ class TrackService {
         if (token != null) "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 
@@ -365,7 +376,8 @@ class TrackService {
         if (token != null) "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 
@@ -395,7 +407,8 @@ class TrackService {
         if (token != null) "Authorization": "Bearer $token",
       };
 
-      final response = await http
+      final client = CustomHttpClient.getClient();
+      final response = await client
           .get(url, headers: headers)
           .timeout(const Duration(seconds: 15));
 

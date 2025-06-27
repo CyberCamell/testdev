@@ -1,10 +1,24 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 
 class NetworkService {
   static const Duration _cacheDuration = Duration(minutes: 5);
   static final Map<String, dynamic> _cache = {};
   static final Map<String, DateTime> _cacheTimestamps = {};
+  
+  // Create a custom HTTP client that bypasses SSL certificate verification
+  static http.Client? _httpClient;
+  
+  static http.Client _getHttpClient() {
+    if (_httpClient == null) {
+      // Override the HttpClient to disable certificate verification
+      final httpClient = HttpClient();
+      httpClient.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      _httpClient = http.IOClient(httpClient);
+    }
+    return _httpClient!;
+  }
 
   static Future<dynamic> get(String url, {bool useCache = true}) async {
     if (useCache) {
@@ -15,7 +29,8 @@ class NetworkService {
     }
 
     try {
-      final response = await http.get(Uri.parse(url));
+      final client = _getHttpClient();
+      final response = await client.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (useCache) {
@@ -31,7 +46,8 @@ class NetworkService {
 
   static Future<dynamic> post(String url, Map<String, dynamic> body) async {
     try {
-      final response = await http.post(
+      final client = _getHttpClient();
+      final response = await client.post(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(body),

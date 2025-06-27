@@ -1,4 +1,5 @@
 import 'package:devguide/Services/auth_service.dart';
+import 'package:devguide/Services/http_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -45,7 +46,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     final url = Uri.parse('${AuthService.baseUrl}/api/auth/register/');
-    final response = await http.post(
+    final client = CustomHttpClient.getClient();
+    final response = await client.post(
       url,
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({

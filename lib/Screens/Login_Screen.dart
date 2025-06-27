@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Services/auth_service.dart';
+import '../Services/http_client.dart';
 import '../routes/app_routs.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -33,7 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final url = Uri.parse('${AuthService.baseUrl}/api/auth/login/');
 
     try {
-      final response = await http.post(
+      final client = CustomHttpClient.getClient();
+      final response = await client.post(
         url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({

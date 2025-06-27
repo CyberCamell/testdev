@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'codeblock.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import '../Services/http_client.dart';
 
 class ChatbotScreen extends StatefulWidget {
   const ChatbotScreen({super.key});
@@ -82,7 +83,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         'https://api.devguide.help/api/chatbot/';
 
     try {
-      final response = await http.post(
+      final client = CustomHttpClient.getClient();
+      final response = await client.post(
         Uri.parse(apiUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'message': message}),
