@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Services/manual_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils/responsive_helper.dart';
 import '../Widgets/base_screen.dart';

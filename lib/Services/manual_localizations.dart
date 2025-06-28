@@ -129,6 +129,8 @@ class ManualLocalizations {
   String get missionDescription => _localizedValues[locale.languageCode]?['missionDescription'] ?? 'DevGuide aims to make programming education accessible to everyone. We believe that coding should be fun, interactive, and available in your preferred language.';
   String get missionDetails => _localizedValues[locale.languageCode]?['missionDetails'] ?? "Whether you're a beginner taking your first steps in coding or an experienced developer looking to expand your skills, DevGuide is here to support your growth and success.";
   String get thankYouMessage => _localizedValues[locale.languageCode]?['thankYouMessage'] ?? "Thank you for using DevGuide! We're constantly working to improve your learning experience and add new features to help you on your programming journey.";
+  String get noDescriptionAvailable => _localizedValues[locale.languageCode]?['noDescriptionAvailable'] ?? 'No description available.';
+  String get relatedTerms => _localizedValues[locale.languageCode]?['relatedTerms'] ?? 'Related Terms';
 
   // Localized values map
   static const Map<String, Map<String, String>> _localizedValues = {
@@ -248,6 +250,8 @@ class ManualLocalizations {
       'missionDescription': 'DevGuide aims to make programming education accessible to everyone. We believe that coding should be fun, interactive, and available in your preferred language.',
       'missionDetails': "Whether you're a beginner taking your first steps in coding or an experienced developer looking to expand your skills, DevGuide is here to support your growth and success.",
       'thankYouMessage': "Thank you for using DevGuide! We're constantly working to improve your learning experience and add new features to help you on your programming journey.",
+      'noDescriptionAvailable': 'No description available.',
+      'relatedTerms': 'Related Terms',
     },
     'ar': {
       'appTitle': 'دليل المطور',
@@ -365,6 +369,8 @@ class ManualLocalizations {
       'missionDescription': 'يهدف دليل المطور إلى جعل تعليم البرمجة في متناول الجميع. نؤمن أن البرمجة يجب أن تكون ممتعة وتفاعلية ومتاحة بلغتك المفضلة.',
       'missionDetails': 'سواء كنت مبتدئاً تخطو خطواتك الأولى في البرمجة أو مطوراً متمرساً يسعى لتوسيع مهاراته، دليل المطور هنا لدعم نموك ونجاحك.',
       'thankYouMessage': 'شكراً لك لاستخدام دليل المطور! نحن نعمل باستمرار لتحسين تجربة التعلم الخاصة بك وإضافة ميزات جديدة لمساعدتك في رحلة البرمجة.',
+      'noDescriptionAvailable': 'لا يوجد وصف متاح.',
+      'relatedTerms': 'المصطلحات ذات الصلة',
     },
   };
 }

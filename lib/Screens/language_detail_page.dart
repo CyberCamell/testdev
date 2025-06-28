@@ -223,9 +223,9 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                           color: Colors.white.withOpacity(0.1),
                                           borderRadius: BorderRadius.circular(12),
                                         ),
-                                        child: const Text(
-                                          'No description available.',
-                                          style: TextStyle(
+                                        child: Text(
+                                          ManualLocalizations.of(context).noDescriptionAvailable,
+                                          style: const TextStyle(
                                             fontSize: 16,
                                             color: Colors.white70,
                                           ),
@@ -234,7 +234,7 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                     if (_terms.isNotEmpty) ...[
                                       const SizedBox(height: 32),
                                       Text(
-                                        'Related Terms',
+                                        ManualLocalizations.of(context).relatedTerms,
                                         style: TextStyle(
                                           fontSize: ResponsiveHelper.getFontSize(context, small: 20, medium: 24, large: 28),
                                           fontWeight: FontWeight.bold,
@@ -305,19 +305,19 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                                                   );
                                                                   
                                                                   if (!launched && context.mounted) {
-                                                                    ScaffoldMessenger.of(context).showSnackBar(
-                                                                      const SnackBar(
-                                                                        content: Text('Failed to open link'),
-                                                                        backgroundColor: Colors.red,
-                                                                      ),
-                                                                    );
+                                                                                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                  SnackBar(
+                                                                    content: Text(ManualLocalizations.of(context).failedToOpenLink),
+                                                                    backgroundColor: Colors.red,
+                                                                  ),
+                                                                );
                                                                   }
                                                                 } else {
                                                                   print('URL cannot be launched: $urlString'); // Debug print
                                                                   if (context.mounted) {
                                                                     ScaffoldMessenger.of(context).showSnackBar(
                                                                       SnackBar(
-                                                                        content: Text('Cannot open link: $urlString'),
+                                                                        content: Text('${ManualLocalizations.of(context).cannotOpenLink}: $urlString'),
                                                                         backgroundColor: Colors.red,
                                                                       ),
                                                                     );
@@ -328,7 +328,7 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                                                 if (context.mounted) {
                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                     SnackBar(
-                                                                      content: Text('Error opening link: $e'),
+                                                                      content: Text('${ManualLocalizations.of(context).failedToOpenLink}: $e'),
                                                                       backgroundColor: Colors.red,
                                                                     ),
                                                                   );
@@ -337,7 +337,7 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                                             } else {
                                                               if (context.mounted) {
                                                                 ScaffoldMessenger.of(context).showSnackBar(
-                                                                  const SnackBar(
+                                                                  SnackBar(
                                                                     content: Text(ManualLocalizations.of(context).noLinkAvailable),
                                                                     backgroundColor: Colors.orange,
                                                                   ),
@@ -349,12 +349,12 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                                             foregroundColor: const Color(0xFF4B8EF6),
                                                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                                           ),
-                                                          child: const Row(
+                                                          child: Row(
                                                             mainAxisSize: MainAxisSize.min,
                                                             children: [
                                                               Text(ManualLocalizations.of(context).learnMore),
-                                                              SizedBox(width: 4),
-                                                              Icon(Icons.arrow_forward, size: 16),
+                                                              const SizedBox(width: 4),
+                                                              const Icon(Icons.arrow_forward, size: 16),
                                                             ],
                                                           ),
                                                         ),
