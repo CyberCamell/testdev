@@ -81,6 +81,7 @@ class ManualLocalizations {
   
   // Success Messages
   String get signUpSuccessful => _localizedValues[locale.languageCode]?['signUpSuccessful'] ?? 'Sign Up successful!';
+  String get loginSuccessful => _localizedValues[locale.languageCode]?['loginSuccessful'] ?? 'Login successful!';
   String get passwordResetEmailSent => _localizedValues[locale.languageCode]?['passwordResetEmailSent'] ?? 'Password reset email has been sent.';
   String get passwordSuccessfullyReset => _localizedValues[locale.languageCode]?['passwordSuccessfullyReset'] ?? 'Password successfully reset.';
   String get profilePictureUpdated => _localizedValues[locale.languageCode]?['profilePictureUpdated'] ?? 'Profile picture updated successfully';
@@ -202,6 +203,7 @@ class ManualLocalizations {
       
       // Success Messages
       'signUpSuccessful': 'Sign Up successful!',
+      'loginSuccessful': 'Login successful!',
       'passwordResetEmailSent': 'Password reset email has been sent.',
       'passwordSuccessfullyReset': 'Password successfully reset.',
       'profilePictureUpdated': 'Profile picture updated successfully',
@@ -321,6 +323,7 @@ class ManualLocalizations {
       
       // Success Messages
       'signUpSuccessful': 'تم إنشاء الحساب بنجاح!',
+      'loginSuccessful': 'تم تسجيل الدخول بنجاح!',
       'passwordResetEmailSent': 'تم إرسال رسالة إعادة تعيين كلمة المرور.',
       'passwordSuccessfullyReset': 'تم إعادة تعيين كلمة المرور بنجاح.',
       'profilePictureUpdated': 'تم تحديث صورة الملف الشخصي بنجاح',

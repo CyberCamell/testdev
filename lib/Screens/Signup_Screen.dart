@@ -1,5 +1,7 @@
 import 'package:devguide/Services/auth_service.dart';
+import 'dart:convert';
 import 'package:devguide/Services/http_client.dart';
+import 'package:devguide/Services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -54,11 +56,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     try {
-      final response = await HttpClient.post('/api/register', {
-        'name': _nameController.text.trim(),
-        'email': _emailController.text.trim(),
-        'password': _passwordController.text,
-      });
+      final response = await CustomHttpClient.getClient().post(
+        Uri.parse('${AuthService.baseUrl}/api/auth/register/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'name': _nameController.text.trim(),
+          'email': _emailController.text.trim(),
+          'password': _passwordController.text,
+        }),
+      );
 
       setState(() {
         _isLoading = false;

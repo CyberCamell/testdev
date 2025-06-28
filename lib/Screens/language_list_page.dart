@@ -354,12 +354,12 @@ class _LanguageListPageState extends State<LanguageListPage> {
                                                         foregroundColor: const Color(0xFF4B8EF6),
                                                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                                                       ),
-                                                      child: const Row(
+                                                      child: Row(
                                                         mainAxisSize: MainAxisSize.min,
                                                         children: [
                                                           Text(ManualLocalizations.of(context).viewDetails),
-                                                          SizedBox(width: 4),
-                                                          Icon(Icons.arrow_forward, size: 16),
+                                                          const SizedBox(width: 4),
+                                                          const Icon(Icons.arrow_forward, size: 16),
                                                         ],
                                                       ),
                                                     ),

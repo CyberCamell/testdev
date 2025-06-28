@@ -31,7 +31,7 @@ This document tracks all compilation errors encountered during the Arabic langua
 
 **Solution**: 
 - Removed `const` keywords from widgets using `ManualLocalizations.of(context)`
-- Files affected: `language_detail_page.dart`
+- Files affected: `language_detail_page.dart`, `language_list_page.dart`
 
 ### 5. Chatbot Screen Syntax Errors (FIXED)
 **Error**: 
@@ -45,6 +45,41 @@ lib/Screens/Chatbot_Screen.dart:277:35: Error: The method 'setLocale' isn't defi
 - Changed `localeService.setLocale(newLocale)` to `localeService.changeLocale(newLocale)` (line 277)
 - The correct method name in LocaleService is `changeLocale`, not `setLocale`
 
+### 6. HTTP Client Errors in Signup Screen (FIXED)
+**Error**: 
+```
+lib/Screens/Signup_Screen.dart:57:30: Error: The getter 'HttpClient' isn't defined for the class '_SignUpScreenState'.
+```
+
+**Solution**: 
+- Changed `HttpClient.post()` to `CustomHttpClient.getClient().post()`
+- Updated imports: removed `NetworkService`, added `AuthService`
+- Fixed API endpoint from `/api/register` to `/api/auth/register/`
+- Added proper URI parsing and JSON encoding
+
+### 7. Missing Translation Getter (FIXED)
+**Error**: 
+```
+lib/Screens/Login_Screen.dart:75:68: Error: The getter 'loginSuccessful' isn't defined for the class 'ManualLocalizations'.
+```
+
+**Solution**: 
+- Added `loginSuccessful` translation strings to `ManualLocalizations`:
+  - English: "Login successful!"
+  - Arabic: "تم تسجيل الدخول بنجاح!"
+- Added corresponding getter method in the class
+
+### 8. Const Expression in Language List Page (FIXED)
+**Error**: 
+```
+lib/Screens/language_list_page.dart:360:87: Error: Not a constant expression.
+lib/Screens/language_list_page.dart:360:84: Error: Method invocation is not a constant expression.
+```
+
+**Solution**: 
+- Removed `const` from Row widget containing `ManualLocalizations.of(context).viewDetails`
+- Kept `const` on child widgets that don't use localization (SizedBox, Icon)
+
 ## Current Status
 ✅ All compilation errors have been resolved.
 ✅ App should now build successfully with complete Arabic language support.
@@ -57,4 +92,6 @@ lib/Screens/Chatbot_Screen.dart:277:35: Error: The method 'setLocale' isn't defi
 - ✅ Language switcher in Settings and Chatbot screens
 - ✅ Persistent language preference using SharedPreferences
 - ✅ Arabic API responses with proper UTF-8 encoding
-- ✅ RTL-aware layouts and icons 
+- ✅ RTL-aware layouts and icons
+- ✅ Proper HTTP client integration for authentication
+- ✅ Consistent API endpoint structure 
