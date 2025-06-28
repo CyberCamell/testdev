@@ -274,7 +274,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     final newLocale = localeService.currentLocale.languageCode == 'en'
                         ? const Locale('ar', '')
                         : const Locale('en', '');
-                    localeService.setLocale(newLocale);
+                    localeService.changeLocale(newLocale);
                   },
                   icon: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -292,7 +292,6 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                       ),
                     ),
                   ),
-                ),
                 );
               },
             ),
