@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../Widgets/Custom_button.dart';
 import '../Widgets/settings_option_card.dart';
 import '../Widgets/user_avatar_widget.dart';
-import '../Widgets/arabic_test_widget.dart';
+import '../Widgets/language_setting_card.dart';
 import '../Services/auth_service.dart';
 
 class Settings extends StatefulWidget {
@@ -171,8 +171,10 @@ class _SettingsState extends State<Settings> {
                     ),
                   ),
                 
-                // Arabic Language Test Widget
-                const ArabicTestWidget(),
+                const SizedBox(height: 8),
+                
+                // Language Setting
+                const LanguageSettingCard(),
                 
                 const SizedBox(height: 8),
                 SettingsOptionCard(

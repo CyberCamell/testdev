@@ -27,21 +27,22 @@ If you get an error about Flutter not being found, you may need to add Flutter t
 - `lib/l10n/app_ar.arb` - Arabic translations
 - `lib/Services/locale_service.dart` - Language switching service
 - `lib/Widgets/language_switcher.dart` - UI for switching languages
-- `lib/Widgets/arabic_test_widget.dart` - Test widget for Arabic text
+- `lib/Widgets/language_setting_card.dart` - Professional language setting widget
 
 #### Modified Files:
 - `pubspec.yaml` - Added Google Fonts and Provider dependencies
 - `lib/main.dart` - Added localization support and RTL handling
 - `lib/Screens/Chatbot_Screen.dart` - Added Arabic support and language switcher
-- `lib/Screens/Settings_Screen.dart` - Added Arabic test widget
+- `lib/Screens/Settings_Screen.dart` - Added language setting option
 
 ### 3. Test the Arabic Support
 
 1. **Open the Settings Screen**: Navigate to the Settings tab in your app
-2. **Find the Language Test Widget**: You'll see a widget with Arabic text and a language switch button
-3. **Switch Languages**: Tap the "Switch to Arabic" button to test Arabic text rendering
+2. **Find the Language Setting**: You'll see a "Language" setting option showing the current language
+3. **Switch Languages**: Tap the Language setting and select Arabic or English from the dialog
 4. **Test Chatbot**: Go to the chatbot screen and use the language switcher in the header
 5. **Verify RTL Layout**: Check that Arabic text flows from right to left
+6. **Test UI Changes**: Notice how the entire app interface changes language immediately
 
 ### 4. What's Fixed
 
@@ -66,8 +67,8 @@ Current Arabic translations include:
 ### 6. Language Switching
 
 Users can switch between languages using:
-- **Settings Screen**: The test widget button
-- **Chatbot Screen**: Language switcher in the header
+- **Settings Screen**: Professional Language setting option
+- **Chatbot Screen**: Language switcher in the header  
 - **Programmatically**: Using the LocaleService
 
 ### 7. Adding More Languages

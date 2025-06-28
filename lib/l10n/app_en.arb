@@ -16,5 +16,8 @@
     "contactUs": "Contact Us",
     "haveAccount": "You already have an account?",
     "chatbot": "DevBot",
-    "chatbotWelcome": "Hi! I'm DevBot, your AI coding assistant. I'm here to help you with your development questions. What can I help you with today?"
+    "chatbotWelcome": "Hi! I'm DevBot, your AI coding assistant. I'm here to help you with your development questions. What can I help you with today?",
+    "language": "Language",
+    "chooseLanguage": "Choose Language",
+    "cancel": "Cancel"
 }
