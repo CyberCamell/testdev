@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Services/manual_localizations.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -12,6 +13,8 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -45,7 +48,7 @@ class BottomNavBar extends StatelessWidget {
               height: 24,
               color: const Color(0xFF4B8EF6),
             ),
-            label: 'Home',
+            label: localizations.home,
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -60,7 +63,7 @@ class BottomNavBar extends StatelessWidget {
               height: 24,
               color: const Color(0xFF4B8EF6),
             ),
-            label: 'Favorites',
+            label: localizations.favorites,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
@@ -71,7 +74,7 @@ class BottomNavBar extends StatelessWidget {
               Icons.smart_toy_rounded,
               size: 24,
             ),
-            label: 'Chatbot',
+            label: localizations.chatbot,
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -86,7 +89,7 @@ class BottomNavBar extends StatelessWidget {
               height: 24,
               color: const Color(0xFF4B8EF6),
             ),
-            label: 'Settings',
+            label: localizations.settings,
           ),
         ],
       ),

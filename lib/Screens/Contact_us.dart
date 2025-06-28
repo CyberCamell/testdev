@@ -4,15 +4,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/responsive_helper.dart';
 import '../Widgets/base_screen.dart';
+import '../Services/manual_localizations.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});
 
   Future<void> _copyToClipboard(BuildContext context, String text) async {
+    final localizations = ManualLocalizations.of(context);
+    
     await Clipboard.setData(ClipboardData(text: text));
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Copied to clipboard')),
+        SnackBar(content: Text(localizations.copiedToClipboard)),
       );
     }
   }
@@ -26,6 +29,8 @@ class ContactUs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return BaseScreen(
       extendBodyBehindAppBar: true,
       child: Container(
@@ -50,7 +55,7 @@ class ContactUs extends StatelessWidget {
                 ),
                 flexibleSpace: FlexibleSpaceBar(
                   title: Text(
-                    'Meet Our Team',
+                    localizations.contactUs,
                     style: TextStyle(
                       fontSize: ResponsiveHelper.getFontSize(
                         context,
@@ -98,6 +103,8 @@ class ContactUs extends StatelessWidget {
   }
 
   Widget _buildTeamSection(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return Column(
       children: [
         _buildTeamCard(
@@ -111,6 +118,7 @@ class ContactUs extends StatelessWidget {
           imagePath: 'Assets/Images/ibrahem.jpg',
           isLeader: true,
           roleColor: const Color(0xFF4B8EF6),
+          localizations: localizations,
         ),
         const SizedBox(height: 16),
         _buildTeamCard(
@@ -123,6 +131,7 @@ class ContactUs extends StatelessWidget {
           linkedin: 'https://linkedin.com/in/ahmed-kamal-b1b295233',
           imagePath: 'Assets/Images/ahmed-kamal.jpg',
           roleColor: const Color(0xFF10B981),
+          localizations: localizations,
         ),
         const SizedBox(height: 16),
         _buildTeamCard(
@@ -134,6 +143,7 @@ class ContactUs extends StatelessWidget {
           email: 'aboshadyahmed74@gmail.com',
           imagePath: 'Assets/Images/ahmed-shady.jpg',
           roleColor: const Color(0xFF10B981),
+          localizations: localizations,
         ),
         const SizedBox(height: 16),
         _buildTeamCard(
@@ -146,6 +156,7 @@ class ContactUs extends StatelessWidget {
           linkedin: 'https://linkedin.com/in/mohamed-elsaeed-15a77a2aa/',
           imagePath: 'Assets/Images/mohamed.jpg',
           roleColor: const Color(0xFFF59E0B),
+          localizations: localizations,
         ),
         const SizedBox(height: 16),
         _buildTeamCard(
@@ -157,6 +168,7 @@ class ContactUs extends StatelessWidget {
           email: 'shahdmohamedd350@gmail.com',
           imagePath: 'Assets/Images/shahd.png',
           roleColor: const Color(0xFF8B5CF6),
+          localizations: localizations,
         ),
       ],
     );
@@ -173,6 +185,7 @@ class ContactUs extends StatelessWidget {
     required String imagePath,
     bool isLeader = false,
     required Color roleColor,
+    required ManualLocalizations localizations,
   }) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -358,14 +371,14 @@ class ContactUs extends StatelessWidget {
                 _buildContactButton(
                   context: context,
                   icon: Icons.email,
-                  label: 'Email',
+                  label: localizations.email,
                   onTap: () => _launchUrl('mailto:$email'),
                 ),
                 if (linkedin != null)
                   _buildContactButton(
                     context: context,
                     icon: FontAwesomeIcons.linkedin,
-                    label: 'LinkedIn',
+                    label: localizations.linkedin,
                     onTap: () => _launchUrl(linkedin),
                   ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Services/manual_localizations.dart';
 import '../models/track.dart';
 
 class TrackCard extends StatelessWidget {
@@ -98,7 +99,7 @@ class TrackCard extends StatelessWidget {
                     ),
                     minimumSize: const Size(double.infinity, 36),
                   ),
-                  child: const Text("Explore", style: TextStyle(color: Colors.white)),
+                                      child: Text(ManualLocalizations.of(context).explore, style: const TextStyle(color: Colors.white)),
                 ),
               ],
             ),

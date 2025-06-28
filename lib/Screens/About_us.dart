@@ -271,11 +271,12 @@ class AboutUs extends StatelessWidget {
   }
 
   Widget _buildStatsSection(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
     final stats = [
-      {'label': 'Programming Languages', 'value': '15+'},
-      {'label': 'Learning Tracks', 'value': '10+'},
-      {'label': 'Active Users', 'value': '1K+'},
-      {'label': 'Code Examples', 'value': '500+'},
+      {'label': localizations.programmingLanguages, 'value': '15+'},
+      {'label': localizations.learningTracks, 'value': '10+'},
+      {'label': localizations.activeUsers, 'value': '1K+'},
+      {'label': localizations.codeExamples, 'value': '500+'},
     ];
 
     return Container(
@@ -288,7 +289,7 @@ class AboutUs extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'DevGuide by the Numbers',
+            localizations.devGuideByNumbers,
             style: TextStyle(
               fontSize: ResponsiveHelper.getFontSize(
                 context,
@@ -361,6 +362,8 @@ class AboutUs extends StatelessWidget {
   }
 
   Widget _buildMissionSection(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -387,7 +390,7 @@ class AboutUs extends StatelessWidget {
               ),
               const SizedBox(width: 16),
               Text(
-                'Our Mission',
+                localizations.ourMission,
                 style: TextStyle(
                   fontSize: ResponsiveHelper.getFontSize(
                     context,
@@ -403,7 +406,7 @@ class AboutUs extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'DevGuide aims to make programming education accessible and enjoyable for everyone. Our goal is to provide developers with the tools, resources, and community support they need to excel in their programming journey.',
+            localizations.missionDescription,
             style: TextStyle(
               fontSize: ResponsiveHelper.getFontSize(
                 context,
@@ -417,7 +420,7 @@ class AboutUs extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Whether you\'re a beginner taking your first steps in coding or an experienced developer looking to expand your skills, DevGuide is here to support your growth and success.',
+            localizations.missionDetails,
             style: TextStyle(
               fontSize: ResponsiveHelper.getFontSize(
                 context,
@@ -435,6 +438,8 @@ class AboutUs extends StatelessWidget {
   }
 
   Widget _buildVersionInfo(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -448,7 +453,7 @@ class AboutUs extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Version',
+                localizations.version,
                 style: TextStyle(
                   fontSize: ResponsiveHelper.getFontSize(
                     context,
@@ -489,7 +494,7 @@ class AboutUs extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Thank you for using DevGuide! We\'re constantly working to improve your learning experience and add new features to help you on your programming journey.',
+            localizations.thankYouMessage,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: ResponsiveHelper.getFontSize(

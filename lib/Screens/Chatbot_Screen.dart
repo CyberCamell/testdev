@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:io';
+import 'dart:ui';
 import 'codeblock.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -98,15 +100,25 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
     try {
       final client = CustomHttpClient.getClient();
+      final localeService = Provider.of<LocaleService>(context, listen: false);
+      final currentLanguage = localeService.currentLocale.languageCode;
+      
       final response = await client.post(
         Uri.parse(apiUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'message': message}),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': currentLanguage,
+        },
+        body: jsonEncode({
+          'message': message,
+          'language': currentLanguage,
+          'locale': currentLanguage,
+        }),
       );
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final botReply = data['response'] ?? 'No response received';
+        final data = jsonDecode(utf8.decode(response.bodyBytes));
+        final botReply = data['response'] ?? data['message'] ?? 'No response received';
 
         setState(() {
           _messages.removeLast();
@@ -124,9 +136,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     } catch (e) {
       setState(() {
         _messages.removeLast();
+        final localizations = ManualLocalizations.of(context);
         _messages.add({
           'role': 'bot',
-          'text': 'I\'m sorry, but I can only assist with programming-related questions. How can I help you today?',
+          'text': localizations.chatbotWelcome,
           'isLoading': false,
           'timestamp': DateTime.now(),
         });
@@ -241,7 +254,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      _isTyping ? 'Typing...' : 'Online • Ready to help',
+                      _isTyping ? localizations.typing : '${localizations.online} • ${localizations.readyToHelp}',
                       style: GoogleFonts.notoSans(
                         color: Colors.white70,
                         fontSize: 13,
@@ -252,10 +265,37 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               ],
             ),
           ),
-          Consumer<LocaleService>(
-            builder: (context, localeService, child) {
-              return LanguageSwitcher(localeService: localeService);
-            },
+          Container(
+            constraints: const BoxConstraints(maxWidth: 80),
+            child: Consumer<LocaleService>(
+              builder: (context, localeService, child) {
+                return IconButton(
+                  onPressed: () {
+                    final newLocale = localeService.currentLocale.languageCode == 'en'
+                        ? const Locale('ar', '')
+                        : const Locale('en', '');
+                    localeService.setLocale(newLocale);
+                  },
+                  icon: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white.withOpacity(0.3)),
+                    ),
+                    child: Text(
+                      localeService.currentLocale.languageCode.toUpperCase(),
+                      style: GoogleFonts.notoSans(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -267,6 +307,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     final isLoading = msg['isLoading'] == true;
     final timestamp = msg['timestamp'] as DateTime?;
     final isRTL = Directionality.of(context) == TextDirection.rtl;
+    final messageText = msg['text'] as String;
+    
+    // Check if the message contains Arabic characters
+    final containsArabic = RegExp(r'[\u0600-\u06FF]').hasMatch(messageText);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -345,36 +389,44 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           ),
                         )
                       : isBot
-                          ? MarkdownBody(
-                              data: msg['text'] ?? '',
-                              styleSheet: MarkdownStyleSheet(
-                                p: GoogleFonts.notoSans(
-                                  color: const Color(0xFF2C3E50),
-                                  fontSize: 15,
-                                  height: 1.4,
-                                ),
-                                code: const TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 13,
-                                  color: Colors.white,
-                                  backgroundColor: Color(0xFF2C3E50),
-                                ),
-                                strong: GoogleFonts.notoSans(
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xFF2C3E50),
-                                ),
-                                em: GoogleFonts.notoSans(
-                                  fontStyle: FontStyle.italic,
-                                  color: const Color(0xFF2C3E50),
+                          ? Directionality(
+                              textDirection: containsArabic ? TextDirection.rtl : TextDirection.ltr,
+                              child: MarkdownBody(
+                                data: messageText,
+                                styleSheet: MarkdownStyleSheet(
+                                  p: GoogleFonts.notoSans(
+                                    color: const Color(0xFF2C3E50),
+                                    fontSize: 15,
+                                    height: 1.4,
+                                    fontFeatures: [const FontFeature.enable('liga')],
+                                  ),
+                                  code: const TextStyle(
+                                    fontFamily: 'monospace',
+                                    fontSize: 13,
+                                    color: Colors.white,
+                                    backgroundColor: Color(0xFF2C3E50),
+                                  ),
+                                  strong: GoogleFonts.notoSans(
+                                    fontWeight: FontWeight.bold,
+                                    color: const Color(0xFF2C3E50),
+                                  ),
+                                  em: GoogleFonts.notoSans(
+                                    fontStyle: FontStyle.italic,
+                                    color: const Color(0xFF2C3E50),
+                                  ),
                                 ),
                               ),
                             )
-                          : SelectableText(
-                              msg['text'] ?? '',
-                              style: GoogleFonts.notoSans(
-                                color: Colors.white,
-                                fontSize: 15,
-                                height: 1.4,
+                          : Directionality(
+                              textDirection: containsArabic ? TextDirection.rtl : TextDirection.ltr,
+                              child: SelectableText(
+                                messageText,
+                                style: GoogleFonts.notoSans(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  height: 1.4,
+                                  fontFeatures: [const FontFeature.enable('liga')],
+                                ),
                               ),
                             ),
                 ),
@@ -521,6 +573,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   Widget _buildInputArea() {
+    final localizations = ManualLocalizations.of(context);
+    
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -555,7 +609,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 child: TextField(
                   controller: _controller,
                   decoration: InputDecoration(
-                    hintText: 'Ask me anything about programming...',
+                    hintText: localizations.askMeAnything,
                     hintStyle: GoogleFonts.notoSans(
                       color: const Color(0xFF9E9E9E),
                       fontSize: 14,

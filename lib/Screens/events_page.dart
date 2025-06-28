@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
-import '../Widgets/chat_bot_button.dart';
+import '../Services/manual_localizations.dart';
 
 class EventsPage extends StatelessWidget {
   const EventsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Events'),
+        title: Text(localizations.events),
+        backgroundColor: const Color(0xFF4B8EF6),
+        foregroundColor: Colors.white,
       ),
-      body: Stack(
-        children: [
-          const Center(
-            child: Text('Events Page - Coming Soon'),
-          ),
-          ChatBotButton(
-            onTap: () => Navigator.pushNamed(context, '/chatbot'),
-          ),
-        ],
+      body: Center(
+        child: Text('${localizations.events} - ${localizations.comingSoon}'),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Services/manual_localizations.dart';
 import '../Services/track_service.dart';
 import '../Services/http_client.dart';
 import '../models/language.dart';
@@ -122,7 +123,7 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
-                                child: const Text('Retry'),
+                                child: Text(ManualLocalizations.of(context).retry),
                               ),
                             ],
                           ),
@@ -337,7 +338,7 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                                               if (context.mounted) {
                                                                 ScaffoldMessenger.of(context).showSnackBar(
                                                                   const SnackBar(
-                                                                    content: Text('No link available'),
+                                                                    content: Text(ManualLocalizations.of(context).noLinkAvailable),
                                                                     backgroundColor: Colors.orange,
                                                                   ),
                                                                 );
@@ -351,7 +352,7 @@ class _LanguageDetailPageState extends State<LanguageDetailPage> {
                                                           child: const Row(
                                                             mainAxisSize: MainAxisSize.min,
                                                             children: [
-                                                              Text('Learn More'),
+                                                              Text(ManualLocalizations.of(context).learnMore),
                                                               SizedBox(width: 4),
                                                               Icon(Icons.arrow_forward, size: 16),
                                                             ],

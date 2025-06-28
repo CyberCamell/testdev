@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Services/manual_localizations.dart';
 import '../Services/track_service.dart';
 import '../models/language.dart';
 import '../utils/responsive_helper.dart';
@@ -263,7 +264,7 @@ class _LanguageListPageState extends State<LanguageListPage> {
                                           borderRadius: BorderRadius.circular(12),
                                         ),
                                       ),
-                                      child: const Text('Retry'),
+                                      child: Text(ManualLocalizations.of(context).retry),
                                     ),
                                   ],
                                 ),
@@ -356,7 +357,7 @@ class _LanguageListPageState extends State<LanguageListPage> {
                                                       child: const Row(
                                                         mainAxisSize: MainAxisSize.min,
                                                         children: [
-                                                          Text('View Details'),
+                                                          Text(ManualLocalizations.of(context).viewDetails),
                                                           SizedBox(width: 4),
                                                           Icon(Icons.arrow_forward, size: 16),
                                                         ],

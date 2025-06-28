@@ -1,18 +1,21 @@
+import 'package:devguide/Widgets/Show_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Services/auth_service.dart';
 import '../Services/http_client.dart';
 import '../routes/app_routs.dart';
+import '../Services/manual_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
@@ -27,6 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
@@ -62,9 +69,10 @@ class _LoginScreenState extends State<LoginScreen> {
           rememberMe: _rememberMe,
         );
 
+        final localizations = ManualLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(responseData['message'] ?? 'Login successful!'),
+            content: Text(responseData['message'] ?? localizations.loginSuccessful),
           ),
         );
 
@@ -72,18 +80,22 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushReplacementNamed(context, '/tracks');
         }
       } else {
+        final localizations = ManualLocalizations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${response.body}')),
+          SnackBar(content: Text('${localizations.login} ${localizations.failed}: ${response.body}')),
         );
       }
     } catch (e) {
       setState(() {
         _isLoading = false;
       });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
-      );
+      
+      if (mounted) {
+        final localizations = ManualLocalizations.of(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${localizations.error}: ${e.toString()}')),
+        );
+      }
     }
   }
 
@@ -105,6 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ManualLocalizations.of(context);
+    
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Container(
@@ -150,151 +164,171 @@ class _LoginScreenState extends State<LoginScreen> {
                   bottom: MediaQuery.of(context).viewInsets.bottom + 20,
                 ),
                 children: [
-                  const Text(
-                    'Log In',
-                    style: TextStyle(
+                  Text(
+                    localizations.login,
+                    style: const TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
                   const SizedBox(height: 40),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Email',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter your email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 20),
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Password',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: !_isPasswordVisible,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: 'Enter your password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _isPasswordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off,
-                          color: Colors.grey,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          localizations.email,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isPasswordVisible = !_isPasswordVisible;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: _rememberMe,
-                            onChanged: (value) {
-                              setState(() {
-                                _rememberMe = value ?? false;
-                              });
+                        const SizedBox(height: 8),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: localizations.enterEmail,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return localizations.pleaseEnterEmail;
+                            }
+                            if (!value.contains('@')) {
+                              return localizations.pleaseEnterValidEmail;
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        Text(
+                          localizations.password,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            hintText: localizations.enterPassword,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          obscureText: !_isPasswordVisible,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return localizations.pleaseEnterNewPassword;
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/forgotPassword');
                             },
-                            checkColor: Colors.white,
-                            fillColor: MaterialStateProperty.resolveWith(
-                              (states) => states.contains(MaterialState.selected)
-                                  ? Colors.blue
-                                  : Colors.white,
+                            child: Text(
+                              localizations.forgotPassword,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 14,
+                              ),
                             ),
                           ),
-                          const Text(
-                            'Remember me',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, AppRoutes.forgotPassword);
-                        },
-                        child: const Text(
-                          'Forgot password?',
-                          style: TextStyle(color: Colors.white),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _isLoading ? null : _login,
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: _isLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              'Log In',
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                        const SizedBox(height: 30),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: _isLoading ? null : _login,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF4B8EF6),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 0,
                             ),
+                            child: _isLoading
+                                ? const CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4B8EF6)),
+                                  )
+                                : Text(
+                                    localizations.login,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                                                         Text(
+                               "${localizations.dontHaveAccount} ",
+                               style: TextStyle(
+                                 color: Colors.white.withOpacity(0.8),
+                                 fontSize: 14,
+                               ),
+                             ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/signup');
+                              },
+                              child: Text(
+                                localizations.signup,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        Center(
+                          child: TextButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => const PrivacyPolicyDialog(),
+                              );
+                            },
+                            child: Text(
+                              localizations.privacyPolicy,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                                fontSize: 12,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  TextButton(
-                    onPressed: _isLoading ? null : _continueAsGuest,
-                    child: const Text(
-                      'Continue as Guest',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
                 ],
               ),
             ),
