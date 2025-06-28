@@ -3,7 +3,12 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'codeblock.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../Services/http_client.dart';
+import '../Services/locale_service.dart';
+import '../Widgets/language_switcher.dart';
 import '../utils/responsive_helper.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -16,14 +21,7 @@ class ChatbotScreen extends StatefulWidget {
 class _ChatbotScreenState extends State<ChatbotScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
-  final List<Map<String, dynamic>> _messages = [
-    {
-      'role': 'bot',
-      'text': "👋 Hi there! I'm DevGuide AI, your personal programming assistant!",
-      'isLoading': false,
-      'timestamp': DateTime.now(),
-    },
-  ];
+  late List<Map<String, dynamic>> _messages;
 
   final List<String> _suggestions = [
     'Explain',
@@ -37,6 +35,29 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   @override
   void initState() {
     super.initState();
+    _initializeMessages();
+  }
+
+  void _initializeMessages() {
+    final localizations = AppLocalizations.of(context);
+    _messages = [
+      {
+        'role': 'bot',
+        'text': localizations?.chatbotWelcome ?? "👋 Hi there! I'm DevGuide AI, your personal programming assistant!",
+        'isLoading': false,
+        'timestamp': DateTime.now(),
+      },
+    ];
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Update welcome message when locale changes
+    if (_messages.isNotEmpty) {
+      final localizations = AppLocalizations.of(context);
+      _messages[0]['text'] = localizations?.chatbotWelcome ?? "👋 Hi there! I'm DevGuide AI, your personal programming assistant!";
+    }
   }
 
   Future<void> sendMessage(String message) async {
@@ -122,6 +143,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   Widget _buildHeader() {
+    final localizations = AppLocalizations.of(context);
+    final isRTL = Directionality.of(context) == TextDirection.rtl;
+    
     return Container(
       padding: EdgeInsets.only(
         top: MediaQuery.of(context).padding.top + 10,
@@ -149,7 +173,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+            icon: Icon(
+              isRTL ? Icons.arrow_forward_ios : Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 20,
+            ),
             onPressed: () => Navigator.pop(context),
             padding: EdgeInsets.zero,
             constraints: const BoxConstraints(),
@@ -188,9 +216,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'DevGuide AI Assistant',
-                  style: TextStyle(
+                Text(
+                  localizations?.chatbot ?? 'DevGuide AI Assistant',
+                  style: GoogleFonts.notoSans(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -210,7 +238,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                     const SizedBox(width: 6),
                     Text(
                       _isTyping ? 'Typing...' : 'Online • Ready to help',
-                      style: const TextStyle(
+                      style: GoogleFonts.notoSans(
                         color: Colors.white70,
                         fontSize: 13,
                       ),
@@ -220,9 +248,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               ],
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert, color: Colors.white),
-            onPressed: () {},
+          Consumer<LocaleService>(
+            builder: (context, localeService, child) {
+              return LanguageSwitcher(localeService: localeService);
+            },
           ),
         ],
       ),
@@ -233,6 +262,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     final isBot = msg['role'] == 'bot';
     final isLoading = msg['isLoading'] == true;
     final timestamp = msg['timestamp'] as DateTime?;
+    final isRTL = Directionality.of(context) == TextDirection.rtl;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -240,7 +270,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
         children: [
-          if (isBot) ...[
+          if (isBot && !isRTL) ...[
             Container(
               width: 32,
               height: 32,
@@ -314,30 +344,30 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                           ? MarkdownBody(
                               data: msg['text'] ?? '',
                               styleSheet: MarkdownStyleSheet(
-                                p: const TextStyle(
-                                  color: Color(0xFF2C3E50),
+                                p: GoogleFonts.notoSans(
+                                  color: const Color(0xFF2C3E50),
                                   fontSize: 15,
                                   height: 1.4,
                                 ),
-                                code: TextStyle(
+                                code: GoogleFonts.notoSans(
                                   fontFamily: 'monospace',
                                   fontSize: 13,
                                   color: Colors.white,
                                   backgroundColor: const Color(0xFF2C3E50).withOpacity(0.1),
                                 ),
-                                strong: const TextStyle(
+                                strong: GoogleFonts.notoSans(
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF2C3E50),
+                                  color: const Color(0xFF2C3E50),
                                 ),
-                                em: const TextStyle(
+                                em: GoogleFonts.notoSans(
                                   fontStyle: FontStyle.italic,
-                                  color: Color(0xFF2C3E50),
+                                  color: const Color(0xFF2C3E50),
                                 ),
                               ),
                             )
                           : SelectableText(
                               msg['text'] ?? '',
-                              style: const TextStyle(
+                              style: GoogleFonts.notoSans(
                                 color: Colors.white,
                                 fontSize: 15,
                                 height: 1.4,
@@ -348,7 +378,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   const SizedBox(height: 4),
                   Text(
                     '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}',
-                    style: TextStyle(
+                    style: GoogleFonts.notoSans(
                       color: Colors.grey[500],
                       fontSize: 11,
                     ),
@@ -357,7 +387,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               ],
             ),
           ),
-          if (!isBot) ...[
+          if (!isBot && !isRTL) ...[
             const SizedBox(width: 12),
             Container(
               width: 32,
@@ -381,6 +411,63 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 size: 18,
               ),
             ),
+          ],
+          if (isBot && isRTL) ...[
+            const SizedBox(width: 12),
+            Container(
+              width: 32,
+              height: 32,
+              margin: const EdgeInsets.only(left: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: ClipOval(
+                child: Image.asset(
+                  'Assets/Images/bot.png',
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(
+                      Icons.smart_toy_rounded,
+                      color: Color(0xFF4A90E2),
+                      size: 18,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ],
+          if (!isBot && isRTL) ...[
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
+                ),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: 12),
           ],
         ],
       ),
@@ -463,18 +550,19 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                 ),
                 child: TextField(
                   controller: _controller,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Ask me anything about programming...',
-                    hintStyle: TextStyle(
-                      color: Color(0xFF9E9E9E),
+                    hintStyle: GoogleFonts.notoSans(
+                      color: const Color(0xFF9E9E9E),
                       fontSize: 14,
                     ),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 12,
                     ),
                   ),
+                  style: GoogleFonts.notoSans(),
                   onSubmitted: sendMessage,
                   maxLines: null,
                 ),

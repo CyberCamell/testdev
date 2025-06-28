@@ -3,7 +3,11 @@ import 'package:devguide/screens/chatbot_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-//import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'Services/locale_service.dart';
 import 'Screens/Login_Screen.dart';
 import 'routes/app_routs.dart';
 import 'Screens/splash_screen.dart';
@@ -24,18 +28,53 @@ void main() async {
     print('Error initializing SharedPreferences: $e');
   }
   
+  // Initialize locale service
+  final localeService = LocaleService();
+  await localeService.initializeLocale();
+  
   PerformanceHelper.optimizeApp();
-  runApp(const DevGuideApp());
+  runApp(DevGuideApp(localeService: localeService));
 }
 
 class DevGuideApp extends StatelessWidget {
-  const DevGuideApp({super.key});
+  final LocaleService localeService;
+  
+  const DevGuideApp({super.key, required this.localeService});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider.value(
+      value: localeService,
+      child: Consumer<LocaleService>(
+        builder: (context, localeService, child) {
+          return MaterialApp(
+            locale: localeService.currentLocale,
       title: 'DevGuide',
       debugShowCheckedModeBanner: false,
+      
+      // Add localization support
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''), // English
+        Locale('ar', ''), // Arabic
+      ],
+      localeResolutionCallback: (locale, supportedLocales) {
+        // Check if the current device locale is supported
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
+            return supportedLocale;
+          }
+        }
+        // If the locale of the device is not supported, use the first one
+        // from the list (English, in this case).
+        return supportedLocales.first;
+      },
+      
       theme: ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: Colors.blue,
@@ -68,6 +107,8 @@ class DevGuideApp extends StatelessWidget {
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
           },
         ),
+        // Add font support for Arabic
+        textTheme: GoogleFonts.notoSansTextTheme(),
       ),
       builder: (context, child) {
         return MediaQuery(
@@ -76,7 +117,10 @@ class DevGuideApp extends StatelessWidget {
               bottom: MediaQuery.of(context).padding.bottom + 8,
             ),
           ),
-          child: child!,
+          child: Directionality(
+            textDirection: _getTextDirection(context),
+            child: child!,
+          ),
         );
       },
       initialRoute: AppRoutes.splash,
@@ -90,6 +134,17 @@ class DevGuideApp extends StatelessWidget {
         AppRoutes.forgotPassword: (context) => const ForgotPasswordScreen(),
         AppRoutes.verifyOtp: (context) => const VerifyOtpScreen(),
       },
+          );
+        },
+      ),
     );
+  }
+  
+  TextDirection _getTextDirection(BuildContext context) {
+    final locale = Localizations.localeOf(context);
+    if (locale.languageCode == 'ar') {
+      return TextDirection.rtl;
+    }
+    return TextDirection.ltr;
   }
 }
