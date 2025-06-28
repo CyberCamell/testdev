@@ -3,11 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'codeblock.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../Services/http_client.dart';
 import '../Services/locale_service.dart';
+import '../Services/manual_localizations.dart';
 import '../Widgets/language_switcher.dart';
 import '../utils/responsive_helper.dart';
 
@@ -39,11 +39,10 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   void _initializeMessages() {
-    final localizations = AppLocalizations.of(context);
     _messages = [
       {
         'role': 'bot',
-        'text': localizations?.chatbotWelcome ?? "👋 Hi there! I'm DevGuide AI, your personal programming assistant!",
+        'text': "👋 Hi there! I'm DevGuide AI, your personal programming assistant!",
         'isLoading': false,
         'timestamp': DateTime.now(),
       },
@@ -54,9 +53,14 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Update welcome message when locale changes
-    if (_messages.isNotEmpty) {
-      final localizations = AppLocalizations.of(context);
-      _messages[0]['text'] = localizations?.chatbotWelcome ?? "👋 Hi there! I'm DevGuide AI, your personal programming assistant!";
+    if (_messages.isNotEmpty && mounted) {
+      try {
+        final localizations = ManualLocalizations.of(context);
+        _messages[0]['text'] = localizations.chatbotWelcome;
+      } catch (e) {
+        // Fallback if localization is not ready
+        _messages[0]['text'] = "👋 Hi there! I'm DevGuide AI, your personal programming assistant!";
+      }
     }
   }
 
@@ -143,7 +147,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
   }
 
   Widget _buildHeader() {
-    final localizations = AppLocalizations.of(context);
+    final localizations = ManualLocalizations.of(context);
     final isRTL = Directionality.of(context) == TextDirection.rtl;
     
     return Container(
@@ -217,7 +221,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  localizations?.chatbot ?? 'DevGuide AI Assistant',
+                  localizations.chatbot,
                   style: GoogleFonts.notoSans(
                     color: Colors.white,
                     fontSize: 18,
@@ -349,11 +353,11 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                                   fontSize: 15,
                                   height: 1.4,
                                 ),
-                                code: GoogleFonts.notoSans(
+                                code: const TextStyle(
                                   fontFamily: 'monospace',
                                   fontSize: 13,
                                   color: Colors.white,
-                                  backgroundColor: const Color(0xFF2C3E50).withOpacity(0.1),
+                                  backgroundColor: Color(0xFF2C3E50),
                                 ),
                                 strong: GoogleFonts.notoSans(
                                   fontWeight: FontWeight.bold,

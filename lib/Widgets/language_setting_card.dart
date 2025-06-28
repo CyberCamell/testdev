@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../Services/locale_service.dart';
+import '../Services/manual_localizations.dart';
 
 class LanguageSettingCard extends StatelessWidget {
   const LanguageSettingCard({super.key});
@@ -11,7 +11,7 @@ class LanguageSettingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<LocaleService>(
       builder: (context, localeService, child) {
-        final localizations = AppLocalizations.of(context);
+        final localizations = ManualLocalizations.of(context);
         final isRTL = Directionality.of(context) == TextDirection.rtl;
         
         return Container(
@@ -49,7 +49,7 @@ class LanguageSettingCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            localizations?.language ?? 'Language',
+                            localizations.language,
                             style: GoogleFonts.notoSans(
                               color: Colors.white,
                               fontSize: 16,
@@ -83,7 +83,7 @@ class LanguageSettingCard extends StatelessWidget {
   }
 
   void _showLanguageDialog(BuildContext context, LocaleService localeService) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = ManualLocalizations.of(context);
     
     showDialog(
       context: context,
@@ -94,7 +94,7 @@ class LanguageSettingCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           title: Text(
-            localizations?.chooseLanguage ?? 'Choose Language',
+            localizations.chooseLanguage,
             style: GoogleFonts.notoSans(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -163,7 +163,7 @@ class LanguageSettingCard extends StatelessWidget {
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
-                localizations?.cancel ?? 'Cancel',
+                localizations.cancel,
                 style: GoogleFonts.notoSans(
                   color: Colors.grey[600],
                   fontWeight: FontWeight.w500,
